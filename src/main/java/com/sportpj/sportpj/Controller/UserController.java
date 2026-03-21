@@ -12,6 +12,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sportpj.sportpj.Model.UserModel;
 import com.sportpj.sportpj.Service.UserService;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.sportpj.sportpj.Service.JwtAuthService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
 
 
 
@@ -20,6 +29,8 @@ import com.sportpj.sportpj.Service.UserService;
 public class UserController {
   @Autowired
   UserService userService;
+  @Autowired
+  JwtAuthService jwtAuthService;
   @GetMapping("/admin/register")
   public String getRegisterPage() {
       return "register";
@@ -32,12 +43,12 @@ public String register(@ModelAttribute UserModel user,
 
     if(agree == null || !agree) {
         redirect.addFlashAttribute("error", "Bạn phải đồng ý điều khoản");
-        return "register";
+        return "redirect:/admin/register";
     }
 
     if(!userService.register(user)) {
         redirect.addFlashAttribute("error", "Email đã tồn tại");
-        return "register";
+        return "redirect:/admin/register";
     }
     redirect.addFlashAttribute("success", "Bạn đã đăng ký tài khoản thành công");
     return "redirect:/admin/login";
@@ -46,9 +57,41 @@ public String register(@ModelAttribute UserModel user,
   public String getLoginPage(Model model) {
       return "login";
   }
-  @GetMapping("/admin/dashboard")
-  public String getDashboardPage() {
-      return "dashboard";
+  @PostMapping("/admin/login")
+  public String loginPost(RedirectAttributes redirect,@RequestParam String email, @RequestParam String password,HttpServletResponse response) {
+    if(!userService.checkLogin(email, password)){
+        redirect.addFlashAttribute("error", "Tài khoản hoặc mật khẩu không đúng");
+        return "redirect:/admin/login";
+    }
+    UserModel userModel = userService.findByEmail(email);
+    String token = jwtAuthService.generateToken(email, userModel.getId());
+    jwtAuthService.addTokenCookie(response, token);
+    redirect.addFlashAttribute("success", "Đăng nhập thành công");
+    return "redirect:/admin/dashboard";
   }
   
+  @GetMapping("/admin/dashboard")
+  public String getDashboardPage(HttpServletRequest request) {
+    Cookie[] cookies = request.getCookies();
+    if(cookies != null){
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("token")){
+                var data = jwtAuthService.validateToken(cookie.getValue());
+                if(data != null){
+                    return "dashboard";
+                }
+            }
+        }
+    }
+      return "redirect:/admin/login";
+  }
+  @GetMapping("/admin/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0); 
+        response.addCookie(cookie);
+        return "redirect:/admin/login";
+    }
 }

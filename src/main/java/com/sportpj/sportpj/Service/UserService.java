@@ -15,11 +15,13 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
-
+    public UserModel findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
     public boolean register(UserModel userModel){
         if(emailExists(userModel.getEmail())) return false;
 
