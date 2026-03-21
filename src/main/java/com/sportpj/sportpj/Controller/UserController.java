@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportpj.sportpj.Model.UserModel;
-import com.sportpj.sportpj.Service.UserService;
-
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.sportpj.sportpj.Service.JwtAuthService;
+import com.sportpj.sportpj.Service.UserService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -63,6 +60,7 @@ public String register(@ModelAttribute UserModel user,
         redirect.addFlashAttribute("error", "Tài khoản hoặc mật khẩu không đúng");
         return "redirect:/admin/login";
     }
+    
     UserModel userModel = userService.findByEmail(email);
     String token = jwtAuthService.generateToken(email, userModel.getId());
     jwtAuthService.addTokenCookie(response, token);

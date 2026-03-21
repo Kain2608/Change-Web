@@ -37,7 +37,6 @@ public class JwtAuthService {
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
-
             Map<String, Object> data = new HashMap<>();
             data.put("email", claims.get("email", String.class));
             data.put("userId", claims.get("userId", Long.class));

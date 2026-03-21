@@ -24,10 +24,10 @@ public class UserService {
     }
     public boolean register(UserModel userModel){
         if(emailExists(userModel.getEmail())) return false;
-
+        
         userModel.setPassword(hashPassword(userModel.getPassword()));
         userModel.setRole("user");
-        userModel.setStatus("initial");
+        userModel.setStatus("active");
         userRepository.save(userModel);
         return true;
     }
@@ -35,6 +35,7 @@ public class UserService {
     public boolean checkLogin(String email, String rawPassword) {
         UserModel user = userRepository.findByEmail(email);
         if(user == null) return false;
+        if(!user.getStatus().equals("active")) return false;
         return user.getPassword().equals(hashPassword(rawPassword));
     }
     // // thuat toan -256sha-256

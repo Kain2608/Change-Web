@@ -85,13 +85,59 @@ if (listFilepondImage.length > 0) {
   listFilepondImage.forEach((filepondImage) => {
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
+    let files = null;
+    const elementImageDefault = filepondImage.closest("[image-default]");
+    if(elementImageDefault){
+      const imageDefault = elementImageDefault.getAttribute("image-default");
+      if(imageDefault){
+        files = [
+          {
+            source : imageDefault
+          }
+        ]
+      }
+    }
     filePond[filepondImage.name] = FilePond.create(filepondImage, {
       labelIdle: "+",
+      files: files,server: null
     });
   });
 }
 // End Filepond Image
+// // FilePond Image - Phiên bản mới
+// const listFilepondImage = document.querySelectorAll("[filepond-image]");
+// let filePond = {}; // Lưu các instance theo name
 
+// if (listFilepondImage.length > 0) {
+//   FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType);
+
+//   listFilepondImage.forEach((input) => {
+//     let files = [];
+
+//     // Nếu có ảnh mặc định
+//     const containerDefault = input.closest("[image-default]");
+//     if (containerDefault) {
+//       const defaultImage = containerDefault.getAttribute("image-default");
+//       if (defaultImage) {
+//         files.push({
+//           source: defaultImage,
+//           options: {
+//             type: "local", // đánh dấu là file local, không upload lại
+//           },
+//         });
+//       }
+//     }
+
+//     // Tạo instance FilePond
+//     filePond[input.name] = FilePond.create(input, {
+//       allowMultiple: false,
+//       labelIdle: "+",
+//       acceptedFileTypes: ['image/*'],
+//       files: files,
+//       server: null, // Nếu không dùng upload async, để null -> form submit bình thường
+//     });
+//   });
+// }
 // Biểu đồ doanh thu
 const revenueChart = document.querySelector("#revenue-chart");
 if (revenueChart) {
@@ -613,18 +659,93 @@ if (profileChangePasswordForm) {
     });
 }
 // End Profile Change Password Form
+//Racket Create Form 
+const racketCreateForm = document.querySelector("#racket-create-form");
+if (racketCreateForm) {
+
+  const validationRacket = new JustValidate("#racket-create-form");
+  validationRacket
+    .addField("#name", [
+      { rule: "required", errorMessage: "Vui lòng nhập tên vợt!" }
+    ])
+    .addField("#length", [
+      { rule: "required", errorMessage: "Vui lòng nhập chiều dài!" }
+    ])
+    .addField("#weight", [
+      { rule: "required", errorMessage: "Vui lòng nhập trọng lượng!" }
+    ])
+    .addField("#price", [
+      { rule: "required", errorMessage: "Vui lòng nhập giá!" }
+    ])
+    .onSuccess((event) => {
+      event.preventDefault(); 
+      const name = event.target.name.value;
+      const length = event.target.length.value;
+      const weight = event.target.weight.value;
+      const style = event.target.style.value;
+      const price = event.target.price.value;
+      const description = tinymce.get("description").getContent();
+      const avatars = filePond.avatar.getFiles();
+      let avatar = null;
+      if (avatars.length > 0) avatar = avatars[0].file;
+
+      console.log({ name, length, weight, style, price, description, avatar });
+      event.target.submit();
+    });
+}
+
+//shoesCreateForm
+const shoesCreateForm = document.querySelector("#shoes-create-form");
+  const validationShoes = new JustValidate("#shoes-create-form");
+  validationShoes
+    .addField("#name", [
+      { rule: "required", errorMessage: "Vui lòng nhập tên giày!" }
+    ])
+    .addField("#size", [
+      { rule: "required", errorMessage: "Vui lòng nhập size!" }
+    ])
+    .addField("#target", [
+      { rule: "required", errorMessage: "Vui lòng chọn đối tượng!" }
+    ])
+    .addField("#price", [
+      { rule: "required", errorMessage: "Vui lòng nhập giá!" }
+    ])
+    .onSuccess((event) => {
+      event.preventDefault();
+      const name = event.target.name.value;
+      const size = event.target.size.value;
+      const target = event.target.target.value;
+      const price = event.target.price.value;
+      const description = tinymce.get("description").getContent();
+      const avatars = filePond.avatar.getFiles();
+      let avatar = null;
+      if (avatars.length > 0) avatar = avatars[0].file;
+
+      console.log({ name, size, target, price, description, avatar });
+      event.target.submit();
+    });
 //SIDER
 const sider = document.querySelector(".sider");
 if (sider) {
-  const pathList = document.querySelectorAll("a");
-  const pathCurrent = location.pathname;
-  const splitPath = pathCurrent.split("/");
+  const pathList = sider.querySelectorAll("a");
+  const currentPath = location.pathname;
+
   pathList.forEach((item) => {
-    const getHref = item.getAttribute("href");
-    const splitGetHref = getHref.split("/");
-    if (splitPath[1] == splitGetHref[1] && splitPath[2] == splitGetHref[2]) {
+    const href = item.getAttribute("href");
+
+    if (href && currentPath.startsWith(href)) {
       item.classList.add("active");
     }
   });
 }
 // END SIDER
+function toggleMenu() {
+  const menu = document.getElementById("createMenu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+document.addEventListener("click", function(e) {
+  const box = document.querySelector(".create-box");
+  if (!box.contains(e.target)) {
+    document.getElementById("createMenu").style.display = "none";
+  }
+});
