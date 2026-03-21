@@ -1,13 +1,14 @@
 package com.sportpj.sportpj.Service;
 
-import com.sportpj.sportpj.Model.UserModel;
-import com.sportpj.sportpj.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Repository.UserRepository;
 
 @Service
 public class UserService {
@@ -24,6 +25,7 @@ public class UserService {
 
         userModel.setPassword(hashPassword(userModel.getPassword()));
         userModel.setRole("user");
+        userModel.setStatus("initial");
         userRepository.save(userModel);
         return true;
     }
@@ -33,7 +35,7 @@ public class UserService {
         if(user == null) return false;
         return user.getPassword().equals(hashPassword(rawPassword));
     }
-
+    // // thuat toan -256sha-256
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

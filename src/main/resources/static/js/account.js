@@ -121,7 +121,7 @@ if(registerForm) {
       const fullName = event.target.fullName.value;
       const email = event.target.email.value;
       const password = event.target.password.value;
-
+      event.target.submit();
       console.log(fullName);
       console.log(email);
       console.log(password);

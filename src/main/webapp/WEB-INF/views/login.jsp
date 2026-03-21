@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="<c:url value='/css/style.css'/>"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 <div class="page-account">
@@ -36,7 +42,12 @@
         <div class="inner-more"><span>Bạn chưa có tài khoản?</span><a href="#">Tạo tài khoản</a></div>
     </div>
 </div>
-
+<c:if test="${not empty error}">
+    <script>toastr.error("${error}");</script>
+</c:if>
+<c:if test="${not empty success}">
+    <script>toastr.success("${success}");</script>
+</c:if>
 <!-- JS -->
 <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 <script src="<c:url value='/js/account.js'/>"></script>
