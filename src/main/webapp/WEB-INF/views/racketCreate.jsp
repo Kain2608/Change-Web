@@ -3,17 +3,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tạo vợt cầu lông</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
-  <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
-  <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
-
-  <script src="https://cdn.tiny.cloud/1/vmvrvx4s91ngnwxk4xwccnt0e8p93eqwn9ld96cu2xb9nkpd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-  <script src="<c:url value='/js/tinymce-config.js'/>"></script>
+  <%@ include file="/WEB-INF/views/layout/default.jsp" %>
 </head>
 <body>
 
@@ -55,28 +47,49 @@
   <h1 class="box-title">Tạo vợt cầu lông</h1>
 
   <div class="section-8">
-    <form id="racket-create-form" method="post" action="/admin/category/racket-create" enctype="multipart/form-data">
+    <form id="racket-create-form" method="post" action="/admin/product/racket-create" enctype="multipart/form-data">
 
       <div class="inner-group">
         <label class="inner-label" for="name">Tên vợt</label>
         <input type="text" id="name" name="name">
       </div>
-
+      <div class="inner-group">
+        <label class="inner-label" for="category">Danh mục</label>
+        <select id="category" name="category">
+          <option value="">-- Chọn danh mục --</option>
+          <option value="">Danh mục 1</option>
+          <option value="">Danh mục 2</option>
+        </select>
+      </div>
+      <div class="inner-group">
+        <label for="brand" class="inner-label">Thương hiệu</label>
+        <select name="brand" id="brand">
+          <option value="">-- Chọn thương hiệu --</option>
+          <option value="">TH1</option>
+          <option value="">TH2</option>
+        </select>
+      </div>
+      <div class="inner-group">
+        <label class="inner-label">Trạng thái</label>
+        <select name="status">
+          <option value="active">Hoạt động</option>
+          <option value="inactive">Dừng</option>
+        </select>
+      </div>
       <div class="inner-group">
         <label class="inner-label" for="length">Chiều dài</label>
-        <input type="text" id="length" name="length" placeholder="vd: 675mm">
+        <input type="text" id="length" name="length" placeholder="vd:675mm">
       </div>
 
       <div class="inner-group">
         <label class="inner-label" for="weight">Trọng lượng</label>
-        <input type="text" id="weight" name="weight" placeholder="vd: 4U, 83g">
+        <input type="text" id="weight" name="weight" placeholder="vd:83g">
       </div>
-
+    
       <div class="inner-group">
         <label class="inner-label" for="price">Giá</label>
-        <input type="number" id="price" name="price" placeholder="vd: 1500000">
+        <input type="number" id="price" name="price">
       </div>
-
       <div class="inner-group">
         <label class="inner-label" for="style">Phong cách chơi</label>
         <select id="style" name="style">
@@ -87,7 +100,7 @@
       </div>
 
       <div class="inner-group inner-two-col">
-        <label class="inner-label" for="avatar">Ảnh</label>
+        <label class="inner-label" for="avatar">Ảnh đại diện</label>
         <div class="inner-upload-image">
           <input type="file" id="avatar" accept="image/*" filepond-image name="avatar">
         </div>

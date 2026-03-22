@@ -1,7 +1,9 @@
 package com.sportpj.sportpj.Service;
 
 import java.io.IOException;
+import java.text.Format;
 import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.text.NumberFormatter;
@@ -39,6 +41,12 @@ public class RacketService {
         }
         return null;
     }
+    public String priceFormatter(RacketModel racket){
+      Locale localeVN = new Locale("vi", "VN");
+      NumberFormat priceFormat = NumberFormat.getCurrencyInstance(localeVN);
+      String priceF = priceFormat.format(racket.getPrice());
+      return priceF;
+    }
 
     public RacketModel saveRacket(RacketModel racket, MultipartFile avatarFile,HttpServletRequest request) {
       if (avatarFile != null && !avatarFile.isEmpty()) {
@@ -53,14 +61,13 @@ public class RacketService {
               e.printStackTrace();
           }
       }
-      
-      NumberFormat format = NumberFormat.getInstance();
-      String priceFormat = format.format(racket.getPrice()) + "đ";
+      racket.setStatus("active");
       UserModel user = getCurrentUser(request);
       if(user != null){
           racket.setCreatedBy(user.getFullName());
           racket.setUpdatedBy(user.getFullName());
       }
+      
       return racketRepository.save(racket);
     }
 }

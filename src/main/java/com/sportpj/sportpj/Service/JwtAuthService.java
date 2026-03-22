@@ -16,7 +16,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class JwtAuthService {
-    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final String SECRET = "SportPjSecretKey2026!@#DayLaChuoiBaoMatCucManh";
+    
+    private Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
     private long expire = 1000 * 60 * 60; 
 
     public String generateToken(String email, long userId) {

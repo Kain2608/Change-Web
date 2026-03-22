@@ -8,62 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tổng quan</title>
 
-    <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
     <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
-    <script src="https://cdn.tiny.cloud/1/vmvrvx4s91ngnwxk4xwccnt0e8p93eqwn9ld96cu2xb9nkpd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="<c:url value='/js/tinymce-config'/>"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
+    <script src="https://cdn.tiny.cloud/1/2jjjif4o7p3z3f8twez7gac93qamazyt9cg88jwfncgtc8rr/tinymce/8/tinymce.min.js"></script>
+    <script src="<c:url value='/js/tinymce-config.js'/>"></script>
 
 <body>
 
-<header class="header">
-    <div class="inner-logo">
-        <a href="/admin/dashboard"><span>Shop</span><span>VnbAdmin</span></a>
-    </div>
-
-    <div class="inner-wrap">
-        <div class="inner-notify">
-            <img src="<c:url value='/images/icon-bell.svg'/>">
-            <span>6</span>
-        </div>
-
-        <div class="inner-account">
-            <div class="inner-avatar">
-                <img src="<c:url value='/images/avatar.jpg'/>">
-            </div>
-            <div class="inner-text">
-                <div class="inner-name">Le Van A</div>
-                <div class="inner-role">Admin</div>
-            </div>
-        </div>
-
-        <button class="inner-button-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-    </div>
-</header>
-
-<nav class="sider">
-    <ul class="inner-menu">
-        <li><a class="active" href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-        <li><a href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quản lý danh mục</a></li>
-        <li><a href="#"><i class="fa-solid fa-table-list"></i> Quản lý sản phẩm</a></li>
-        <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
-        <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
-        <li><a href='#'><i class="fa-solid fa-newspaper"></i>Quản lý tin tức</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-group"></i> Thông tin liên hệ và phản hồi</a></li>
-    </ul>
-
-    <hr>
-
-    <ul class="inner-menu">
-        <li><a href="#"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-gear"></i> Thông tin cá nhân</a></li>
-        <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
-    </ul>
-</nav>
-
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF/views/layout/sider.jsp" %>
 <div class="sider-overlay"></div>
 
 <main class="main">
@@ -100,11 +59,24 @@
             </div>
         </div>
     </div>
+    <c:if test="${not empty error}">
+      <script>
+        toastr.error("${error}");
+      </script>
+    </c:if>
+    <c:if test="${not empty success}">
+      <script>
+        toastr.success("${success}");
+      </script>
+    </c:if>
 
 </main>
-
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 <script src="<c:url value='/js/script.js'/>"></script>
-
 </body>
 </html>

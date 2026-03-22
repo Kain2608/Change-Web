@@ -13,7 +13,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class CloudinaryConfig {
   @Bean
   public Cloudinary cloudinary(){
-    Dotenv dotenv = Dotenv.load();
+    Dotenv dotenv = Dotenv.configure()
+            .directory(System.getProperty("user.dir"))
+            .ignoreIfMissing()
+            .load();
     String cloudName = dotenv.get("CLOUDINARY_CLOUD_NAME");
     String apiKey = dotenv.get("CLOUDINARY_API_KEY");
     String apiSecret = dotenv.get("CLOUDINARY_API_SECRET");

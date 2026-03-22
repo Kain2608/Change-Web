@@ -17,9 +17,19 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-
+// @ModelAttribute dùng để map dữ liệu từ form HTML về object Java
+// Spring tự động lấy giá trị của input theo name và gán vào thuộc tính tương ứng của model
+// Nếu không dùng @ModelAttribute, có thể dùng @RequestParam để lấy từng giá trị input riêng lẻ
+// Tên name trong form phải trùng với thuộc tính của model để Spring map tự động
+// Nếu tên khác, dùng @ModelAttribute("tên khác") để map chính xác
+// Với file upload, input <input type="file" name="avatar"> không tự map vào model
+// File upload phải dùng @RequestPart(name="avatar") MultipartFile avatarFile trong controller
+// Các input khác vẫn tự map vào @ModelAttribute nếu tên trùng với thuộc tính model
+// Nếu không cần object, có thể dùng @RequestParam cho từng input, nhưng không map thành object
+// Quy tắc tổng quát:
+// input name = thuộc tính model → map tự động
+// file upload → dùng @RequestPart
+// model name trong form và @ModelAttribute → nên trùng hoặc khai báo đúng
 
 
 @Controller
@@ -28,6 +38,7 @@ public class UserController {
   UserService userService;
   @Autowired
   JwtAuthService jwtAuthService;
+  
   @GetMapping("/admin/register")
   public String getRegisterPage() {
       return "register";
@@ -54,6 +65,7 @@ public String register(@ModelAttribute UserModel user,
   public String getLoginPage(Model model) {
       return "login";
   }
+  
   @PostMapping("/admin/login")
   public String loginPost(RedirectAttributes redirect,@RequestParam String email, @RequestParam String password,HttpServletResponse response) {
     if(!userService.checkLogin(email, password)){

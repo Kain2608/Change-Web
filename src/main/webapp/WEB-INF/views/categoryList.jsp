@@ -6,61 +6,23 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <meta charset="UTF-8" />
     <title>Quản lý danh mục</title>
     <link rel="stylesheet" href="<c:url value='/css/style.css'/>" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
   </head>
   <body>
-    <header class="header">
-      <div class="inner-logo">
-        <a href="/admin/dashboard"><span>Shop</span><span>VnbAdmin</span></a>
-      </div>
-
-      <div class="inner-wrap">
-        <div class="inner-notify">
-          <img src="<c:url value='/images/icon-bell.svg'/>" />
-          <span>6</span>
-        </div>
-
-        <div class="inner-account">
-          <div class="inner-avatar">
-            <img src="<c:url value='/images/avatar.jpg'/>" />
-          </div>
-          <div class="inner-text">
-            <div class="inner-name">Le Van A</div>
-            <div class="inner-role">Admin</div>
-          </div>
-        </div>
-
-        <button class="inner-button-menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-      </div>
-    </header>
-
-    <nav class="sider">
-    <ul class="inner-menu">
-        <li><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-        <li><a class="active" href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quản lý danh mục</a></li>
-        <li><a href="#"><i class="fa-solid fa-table-list"></i> Quản lý sản phẩm</a></li>
-        <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
-        <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
-        <li><a href='#'><i class="fa-solid fa-newspaper"></i>Quản lý tin tức</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-group"></i> Thông tin liên hệ và phản hồi</a></li>
-    </ul>
-
-    <hr>
-
-    <ul class="inner-menu">
-        <li><a href="#"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-gear"></i> Thông tin cá nhân</a></li>
-        <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
-    </ul>
-</nav>
+    <%@ include file="/WEB-INF/views/layout/header.jsp" %> <%@ include
+    file="/WEB-INF/views/layout/sider.jsp" %>
+    <div class="sider-overlay"></div>
 
     <main class="main">
       <h1 class="box-title">Quản lý danh mục</h1>
       <div class="section-4">
         <div class="inner-wrap">
-          <div class="inner-item inner-label"><i class="fa-solid fa-filter"></i> Bộ lọc</div>
+          <div class="inner-item inner-label">
+            <i class="fa-solid fa-filter"></i> Bộ lọc
+          </div>
           <div class="inner-item">
             <select>
               <option value="">Trạng thái</option>
@@ -75,30 +37,19 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
               <option value="">Lê Văn B</option>
             </select>
           </div>
-          <div class="inner-item inner-reset"><i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc</div>
+          <div class="inner-item inner-reset">
+            <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
+          </div>
         </div>
       </div>
       <div class="section-5">
         <div class="inner-wrap">
-          
-          <div class="inner-search"><i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Tìm kiếm">
+          <div class="inner-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Tìm kiếm" />
           </div>
-          <div class="create-box">
-          <button class="create-btn" onclick="toggleMenu()">
-            + Tạo mới
-          </button>
-
-          <div id="createMenu" class="create-menu">
-            <a href="/admin/category/racket-create" class="menu-item">
-              <i class="fa-solid fa-table-tennis-paddle-ball"></i>
-              Vợt
-            </a>
-            <a href="/admin/category/shoes-create" class="menu-item">
-              <i class="fa-solid fa-shoe-prints"></i>
-              Giày
-            </a>
-          </div>
+          <div class="inner-button-create">
+            <button><a href="/admin/category/create">+ Tạo mới</a></button>
           </div>
         </div>
       </div>
@@ -107,7 +58,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <table>
             <thead>
               <tr>
-                
                 <th class="inner-center">
                   <input type="checkbox" />
                 </th>
@@ -122,29 +72,38 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             </thead>
 
             <tbody>
+              <c:forEach var="item" items="${categoryList}">
               <tr>
                 <td class="inner-center"><input type="checkbox" /></td>
-                <td class="inner-center">1</td>
-                <td>Danh mục 1</td>
+                <td class="inner-center">${item.id}</td>
+                <td>${item.name}</td>
                 <td>
-                  <img class="inner-avatar" src="<c:url value=''/>" />
+                  <img class="inner-avatar" src= ${item.avatar} />
                 </td>
                 <td class="inner-center">
-                  <div class="badge badge-green">Hoạt động</div>
+                  <c:choose>
+                    <c:when test="${item.status == 'active'}">
+                      <div class="badge badge-green">Hoạt động</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="badge badge-red">Tạm dừng</div>
+                    </c:otherwise>
+                  </c:choose>
                 </td>
                 <td>
-                  <div>Lê Văn A</div>
-                  <div class="inner-time">16:30 - 20/10/2024</div>
+                  <div>${item.createdBy}</div>
+                  <div class="inner-time">${item.createdAt}</div>
                 </td>
                 <td>
-                  <div>Lê Văn A</div>
-                  <div class="inner-time">16:30 - 20/10/2024</div>
+                  <div>${item.updatedBy}</div>
+                  <div class="inner-time">${item.updatedAt}</div>
                 </td>
                 <td>
-                  <button>Sửa</button>
-                  <button>Xóa</button>
+                  <button><a href="/admin/category/edit/${item.id}">Sửa</a></button>
+                  <button><a href="/admin/category/edit/${item.id}">Xóa</a></button>
                 </td>
               </tr>
+              </c:forEach>
             </tbody>
           </table>
         </div>

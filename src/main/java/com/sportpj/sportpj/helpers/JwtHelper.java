@@ -43,7 +43,7 @@ public class JwtHelper {
     }
     public Long getUserId(HttpServletRequest request){
         Map<String, Object> data = getEAndU(request);
-        if(data != null) return ((Number) data.get("id")).longValue();
+        if(data != null) return ((Number) data.get("userId")).longValue();
         return null;
     }
 } 

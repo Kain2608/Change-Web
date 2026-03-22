@@ -20,20 +20,23 @@ public class RacketModel {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String category;
     private String length;
     private String weight;
     private Integer price;
     private String style;
     private String avatar;
     private String description;
+    private String status;
+    private String brand;
     private String createdBy;
     private String updatedBy;
 
     @CreationTimestamp
-    @Column(updatable=false)
+    @Column(updatable = false,columnDefinition = "DATETIME(0)")
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
+    @Column(columnDefinition = "DATETIME(0)")
     private LocalDateTime updatedAt;
 
     public Long getId() { return id; }
@@ -70,4 +73,23 @@ public class RacketModel {
         if (updatedAt == null) return null;
         return updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getBrand() {
+        return brand;
+    }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
 }

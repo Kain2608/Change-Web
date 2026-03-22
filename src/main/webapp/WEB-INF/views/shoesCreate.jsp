@@ -58,13 +58,23 @@
   <h1 class="box-title">Tạo giày cầu lông</h1>
 
   <div class="section-8">
-    <form id="shoes-create-form" method="post" action="/admin/category/shoes-create" enctype="multipart/form-data">
+    <form id="shoes-create-form" method="post" action="/admin/product/shoes-create" enctype="multipart/form-data">
 
       <div class="inner-group">
         <label class="inner-label" for="name">Tên giày</label>
         <input type="text" id="name" name="name">
       </div>
-
+      <div class="inner-group">
+        <label class="inner-label" for="parent">Danh mục cha</label>
+        <input type="text" id="parent" name="parent">
+      </div>
+      <div class="inner-group">
+        <label class="inner-label">Trạng thái</label>
+        <select name="status">
+          <option value="active">Hoạt động</option>
+          <option value="inactive">Dừng</option>
+        </select>
+      </div>
       <div class="inner-group">
         <label class="inner-label" for="size">Size</label>
         <input type="text" id="size" name="size" placeholder="vd: 40-45">

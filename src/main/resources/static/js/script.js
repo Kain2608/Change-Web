@@ -1,3 +1,18 @@
+//SIDER
+const sider = document.querySelector(".sider");
+if (sider) {
+  const pathList = document.querySelectorAll("a");
+  const pathCurrent = location.pathname;
+  const splitPath = pathCurrent.split("/");
+  pathList.forEach((item) => {
+    const getHref = item.getAttribute("href");
+    const splitGetHref = getHref.split("/");
+    if (splitPath[1] == splitGetHref[1] && splitPath[2] == splitGetHref[2]) {
+      item.classList.add("active");
+    }
+  });
+}
+// END SIDER
 // Menu Mobile
 const buttonMenuMobile = document.querySelector(".header .inner-button-menu");
 if (buttonMenuMobile) {
@@ -87,19 +102,22 @@ if (listFilepondImage.length > 0) {
     FilePond.registerPlugin(FilePondPluginFileValidateType);
     let files = null;
     const elementImageDefault = filepondImage.closest("[image-default]");
-    if(elementImageDefault){
+    if (elementImageDefault) {
       const imageDefault = elementImageDefault.getAttribute("image-default");
-      if(imageDefault){
+      if (imageDefault) {
         files = [
           {
-            source : imageDefault
-          }
-        ]
+            source: imageDefault,
+          },
+        ];
       }
     }
     filePond[filepondImage.name] = FilePond.create(filepondImage, {
       labelIdle: "+",
-      files: files,server: null
+      acceptedFileTypes: ["image/*"],
+      files: files,
+      server: null,
+      storeAsFile: true,
     });
   });
 }
@@ -209,7 +227,7 @@ if (categoryCreateForm) {
         avatar = avatars[0].file;
       }
       const description = tinymce.get("description").getContent();
-
+      event.target.submit();
       console.log(name);
       console.log(parent);
       console.log(position);
@@ -659,91 +677,78 @@ if (profileChangePasswordForm) {
     });
 }
 // End Profile Change Password Form
-//Racket Create Form 
+//Racket Create Form
 const racketCreateForm = document.querySelector("#racket-create-form");
 if (racketCreateForm) {
-
   const validationRacket = new JustValidate("#racket-create-form");
   validationRacket
     .addField("#name", [
-      { rule: "required", errorMessage: "Vui lòng nhập tên vợt!" }
+      { rule: "required", errorMessage: "Vui lòng nhập tên vợt!" },
     ])
     .addField("#length", [
-      { rule: "required", errorMessage: "Vui lòng nhập chiều dài!" }
+      { rule: "required", errorMessage: "Vui lòng nhập chiều dài!" },
     ])
     .addField("#weight", [
-      { rule: "required", errorMessage: "Vui lòng nhập trọng lượng!" }
+      { rule: "required", errorMessage: "Vui lòng nhập trọng lượng!" },
     ])
     .addField("#price", [
-      { rule: "required", errorMessage: "Vui lòng nhập giá!" }
+      { rule: "required", errorMessage: "Vui lòng nhập giá!" },
     ])
     .onSuccess((event) => {
-      event.preventDefault(); 
-      const name = event.target.name.value;
-      const length = event.target.length.value;
-      const weight = event.target.weight.value;
-      const style = event.target.style.value;
-      const price = event.target.price.value;
-      const description = tinymce.get("description").getContent();
-      const avatars = filePond.avatar.getFiles();
-      let avatar = null;
-      if (avatars.length > 0) avatar = avatars[0].file;
+      event.preventDefault();
+      const data = {
+        name: event.target.name.value,
+        category: event.target.category.value,
+        brand: event.target.brand.value,
+        status: event.target.status.value,
+        length: event.target.length.value,
+        weight: event.target.weight.value,
+        style: event.target.style.value,
+        price: event.target.price.value,
+        description: tinymce.get("description").getContent(),
+        avatar: filePond.avatar?.getFiles()[0]?.file || null,
+      };
 
-      console.log({ name, length, weight, style, price, description, avatar });
       event.target.submit();
     });
 }
 
 //shoesCreateForm
 const shoesCreateForm = document.querySelector("#shoes-create-form");
-  const validationShoes = new JustValidate("#shoes-create-form");
-  validationShoes
-    .addField("#name", [
-      { rule: "required", errorMessage: "Vui lòng nhập tên giày!" }
-    ])
-    .addField("#size", [
-      { rule: "required", errorMessage: "Vui lòng nhập size!" }
-    ])
-    .addField("#target", [
-      { rule: "required", errorMessage: "Vui lòng chọn đối tượng!" }
-    ])
-    .addField("#price", [
-      { rule: "required", errorMessage: "Vui lòng nhập giá!" }
-    ])
-    .onSuccess((event) => {
-      event.preventDefault();
-      const name = event.target.name.value;
-      const size = event.target.size.value;
-      const target = event.target.target.value;
-      const price = event.target.price.value;
-      const description = tinymce.get("description").getContent();
-      const avatars = filePond.avatar.getFiles();
-      let avatar = null;
-      if (avatars.length > 0) avatar = avatars[0].file;
+const validationShoes = new JustValidate("#shoes-create-form");
+validationShoes
+  .addField("#name", [
+    { rule: "required", errorMessage: "Vui lòng nhập tên giày!" },
+  ])
+  .addField("#size", [
+    { rule: "required", errorMessage: "Vui lòng nhập size!" },
+  ])
+  .addField("#target", [
+    { rule: "required", errorMessage: "Vui lòng chọn đối tượng!" },
+  ])
+  .addField("#price", [
+    { rule: "required", errorMessage: "Vui lòng nhập giá!" },
+  ])
+  .onSuccess((event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const size = event.target.size.value;
+    const target = event.target.target.value;
+    const price = event.target.price.value;
+    const description = tinymce.get("description").getContent();
+    const avatars = filePond.avatar.getFiles();
+    let avatar = null;
+    if (avatars.length > 0) avatar = avatars[0].file;
 
-      console.log({ name, size, target, price, description, avatar });
-      event.target.submit();
-    });
-//SIDER
-const sider = document.querySelector(".sider");
-if (sider) {
-  const pathList = sider.querySelectorAll("a");
-  const currentPath = location.pathname;
-
-  pathList.forEach((item) => {
-    const href = item.getAttribute("href");
-
-    if (href && currentPath.startsWith(href)) {
-      item.classList.add("active");
-    }
+    console.log({ name, size, target, price, description, avatar });
+    event.target.submit();
   });
-}
-// END SIDER
+
 function toggleMenu() {
   const menu = document.getElementById("createMenu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
   const box = document.querySelector(".create-box");
   if (!box.contains(e.target)) {
     document.getElementById("createMenu").style.display = "none";
