@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SportStore - Đồ Thể Thao Chính Hãng</title>
     
-    <link rel="stylesheet" href="css/client.css">
+    <link rel="stylesheet" href="/css/client.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -31,6 +31,10 @@
                 </div>
                 
                 <div class="nav-icons">
+                    <a href="contact" class="icon-link contact-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Liên hệ</span>
+                    </a>
                     <a href="#" class="icon-link"><i class="fas fa-user"></i></a>
                     <a href="#" class="icon-link cart-icon" onclick="viewCart()">
                         <i class="fas fa-shopping-cart"></i>

@@ -81,6 +81,7 @@
         <div class="inner-button-create">
           <button onclick="openModal()">+ Tạo mới</button>
         </div>
+        
         <div id="modal" class="modal hidden">
           <div class="modal-content">
             <h3>Chọn loại sản phẩm</h3>
@@ -115,13 +116,15 @@
                 <td><img class="inner-avatar" src="${item.avatar}" alt="${item.name}" /></td>
                 <td style="font-weight: 500;">${item.name}</td>
                 <td>
-                    <c:choose>
-                        <c:when test="${item.type == 'shoes'}"><span class="badge" style="background: #e3f2fd; color: #1976d2;">Giày</span></c:when>
-                        <c:otherwise><span class="badge" style="background: #f3e5f5; color: #7b1fa2;">Vợt</span></c:otherwise>
-                    </c:choose>
+                  <c:choose>
+                    <c:when test="${item.type == 'shoes'}"><span class="badge" style="background: #e3f2fd; color: #1976d2;">Giày</span></c:when>
+                    <c:otherwise><span class="badge" style="background: #f3e5f5; color: #7b1fa2;">Vợt</span></c:otherwise>
+                  </c:choose>
                 </td>
-                <td>${item.category}</td>
-                <td>${item.brand}</td>
+                
+                <td>${item.category != null ? item.category.name : "N/A"}</td>
+                <td>${item.brand != null ? item.brand.name : "N/A"}</td>
+                
                 <td class="inner-center">
                   <c:choose>
                     <c:when test="${item.status == 'active'}"><div class="badge badge-green">Hoạt động</div></c:when>
@@ -159,7 +162,5 @@
   <c:if test="${not empty error}"><script>toastr.error("${error}");</script></c:if>
 
   <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
-  <script src="<c:url value='/js/script.js'/>"></script>
 </body>
 </html>

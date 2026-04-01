@@ -31,3 +31,11 @@ INSERT IGNORE INTO role (id, name, description) VALUES
 (3, 'Admin', 'Quản lý toàn hệ thống'),
 (4, 'Manager', 'Quản lý danh mục, sản phẩm và đơn hàng'),
 (5, 'User', 'Người dùng hệ thống');
+INSERT INTO brands (name, description, status) VALUES 
+('Yonex', 'Thương hiệu cầu lông số 1 thế giới đến từ Nhật Bản.', 'active'),
+('Victor', 'Thương hiệu lớn từ Đài Loan, tài trợ cho nhiều tay vợt hàng đầu.', 'active'),
+('Lining', 'Gã khổng lồ thể thao đến từ Trung Quốc, thiết kế rất bắt mắt.', 'active'),
+('Mizuno', 'Nổi tiếng với công nghệ giày êm ái và bền bỉ từ Nhật Bản.', 'active'),
+('Kawasaki', 'Thương hiệu lâu đời với phân khúc giá dễ tiếp cận.', 'active'),
+('Asics', 'Chuyên gia về giày thể thao với công nghệ đệm Gel cực êm.', 'active'),
+('Lefus', 'Thương hiệu giày cầu lông giá rẻ phổ biến cho người mới chơi.', 'active');

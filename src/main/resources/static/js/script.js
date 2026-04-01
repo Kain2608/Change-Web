@@ -729,19 +729,29 @@ if (racketCreateForm) {
     });
 }
 
-const shoesCreateForm = document.querySelector("#shoes-create-form");
-if (shoesCreateForm) {
+const shoesForm = document.querySelector("#shoes-create-form");
+
+if (shoesForm) {
   const validationShoes = new JustValidate("#shoes-create-form");
+
   validationShoes
-    .addField("#name", [{ rule: "required", errorMessage: "Vui lòng nhập tên giày!" }])
-    .addField("#category", [{ rule: "required", errorMessage: "Vui lòng chọn danh mục!" }])
-    .addField("#size", [{ rule: "required", errorMessage: "Vui lòng nhập size!" }])
-    .addField("#price", [{ rule: "required", errorMessage: "Vui lòng nhập giá!" }])
+    .addField("#name", [
+      { rule: "required", errorMessage: "Tên giày không được để trống!" }
+    ])
+    .addField("#categoryId", [ 
+      { rule: "required", errorMessage: "Vui lòng chọn danh mục!" }
+    ])
+    .addField("#brandId", [ 
+      { rule: "required", errorMessage: "Vui lòng chọn thương hiệu!" }
+    ])
+    .addField("#price", [
+      { rule: "required", errorMessage: "Giá gốc không được để trống!" }
+    ])
     .onSuccess((event) => {
-      // Logic xử lý dữ liệu trước khi submit
-      event.target.submit();
+      event.target.submit(); 
     });
 }
+
 
 
 
@@ -849,24 +859,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// --- 1. QUẢN LÝ MODAL & CHUYỂN TRANG (CHO TRANG LIST) ---
 function openModal() {
-  document.getElementById("modal").classList.remove("hidden");
+    document.getElementById("modal")?.classList.remove("hidden");
 }
 
 function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
+    document.getElementById("modal")?.classList.add("hidden");
 }
 
 function goTo(type) {
-  window.location.href = "/admin/product/" + type;
+    window.location.href = "/admin/product/" + type;
 }
-document.getElementById("filterType").addEventListener("change", function () {
+
+// Bộ lọc loại sản phẩm tại Client
+document.getElementById("filterType")?.addEventListener("change", function () {
     const selectedType = this.value;
     const rows = document.querySelectorAll("tbody tr");
 
     rows.forEach(row => {
         const type = row.getAttribute("data-type");
-
         if (!selectedType || type === selectedType) {
             row.style.display = "";
         } else {
@@ -874,28 +886,71 @@ document.getElementById("filterType").addEventListener("change", function () {
         }
     });
 });
-if (buttonCreate) {
-  buttonCreate.addEventListener("click", () => {
-    const firstItem = listItem.querySelector(".inner-schedule-item");
-    const cloneItem = firstItem.cloneNode(true);
 
-    // 1. Reset tất cả các ô nhập text/number về rỗng
-    cloneItem.querySelectorAll("input").forEach(input => {
-      input.value = "";
-    });
+// --- 2. QUẢN LÝ BIẾN THỂ (CHO TRANG CREATE/EDIT) ---
+const scheduleSection = document.querySelector(".inner-schedule");
 
-    // 2. Reset tất cả các thẻ select (Size và Màu) về lựa chọn đầu tiên ("-- Chọn --")
-    cloneItem.querySelectorAll("select").forEach(select => {
-      select.selectedIndex = 0;
-    });
+if (scheduleSection) {
+    const btnCreateVariant = scheduleSection.querySelector(".inner-schedule-create");
+    const listVariant = scheduleSection.querySelector(".inner-schedule-list");
 
-    // 3. Xử lý phần thân (nếu có dùng TinyMCE cho từng dòng)
-    const body = cloneItem.querySelector(".inner-schedule-body");
-    if (body) {
-      const id = `mce_${Date.now()}`;
-      body.innerHTML = `<textarea textarea-mce id="${id}"></textarea>`;
+    if (btnCreateVariant && listVariant) {
+        btnCreateVariant.addEventListener("click", () => {
+            const firstSizeSelect = listVariant.querySelector('select[name="variant_sizes[]"]');
+            const firstColorSelect = listVariant.querySelector('select[name="variant_colors[]"]');
+            
+            if (!firstSizeSelect || !firstColorSelect) {
+                toastr.error("Không tìm thấy mẫu biến thể!");
+                return;
+            }
+
+            const sizeOptions = firstSizeSelect.innerHTML;
+            const colorOptions = firstColorSelect.innerHTML;
+
+            const newVariant = document.createElement("div");
+            newVariant.classList.add("inner-schedule-item");
+            newVariant.style.cssText = "border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; position: relative; border-radius: 4px;";
+
+            newVariant.innerHTML = `
+                <div class="inner-schedule-head" style="display: flex; gap: 10px; align-items: center;">
+                    <div class="inner-move" style="cursor: move;"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <select name="variant_sizes[]" style="flex: 1;" required>
+                        ${sizeOptions}
+                    </select>
+                    <select name="variant_colors[]" style="flex: 1;" required>
+                        ${colorOptions}
+                    </select>
+                    <input type="number" name="variant_stocks[]" placeholder="Số lượng" style="flex: 1;" min="0" value="0">
+                    <div class="inner-remove" style="cursor: pointer; color: red;"><i class="fa-solid fa-trash"></i></div>
+                </div>
+            `;
+            listVariant.appendChild(newVariant);
+            toastr.success("Đã thêm biến thể mới.");
+        });
     }
 
-    listItem.appendChild(cloneItem);
-  });
+    // Xóa biến thể (Event Delegation)
+    scheduleSection.addEventListener("click", (e) => {
+        const removeBtn = e.target.closest(".inner-remove");
+        if (removeBtn) {
+            const allItems = scheduleSection.querySelectorAll(".inner-schedule-item");
+            if (allItems.length <= 1) {
+                toastr.warning("Phải có ít nhất một biến thể!");
+                return;
+            }
+            removeBtn.closest(".inner-schedule-item")?.remove();
+            toastr.info("Đã xóa biến thể.");
+        }
+    });
 }
+
+// --- 3. SỬA LỖI MENU (FIX DÒNG 873) ---
+document.querySelector(".inner-button-menu")?.addEventListener("click", () => {
+    document.querySelector(".sider")?.classList.toggle("active");
+    document.querySelector(".sider-overlay")?.classList.toggle("active");
+});
+
+document.querySelector(".sider-overlay")?.addEventListener("click", () => {
+    document.querySelector(".sider")?.classList.remove("active");
+    document.querySelector(".sider-overlay")?.classList.remove("active");
+});
