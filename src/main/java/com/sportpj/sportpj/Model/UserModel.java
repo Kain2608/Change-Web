@@ -18,6 +18,8 @@ public class UserModel {
     private String password;
     private String phone;
     private String role; 
+    @Column(name = "position")
+    private String position;
     private String positionCompany;
     private String status;
     private String avatar;
@@ -67,4 +69,16 @@ public class UserModel {
     public LocalDateTime getCreatedAt() { return createdAt; }
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public String getPosition() {
+        return position;
+    }
+    public void setPosition(String position) {
+        this.position = position;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

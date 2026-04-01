@@ -109,8 +109,8 @@ if (listFilepondImage.length > 0) {
           {
             source: imageDefault,
             options: {
-              type: "local"
-            }
+              type: "local",
+            },
           },
         ];
       }
@@ -123,11 +123,11 @@ if (listFilepondImage.length > 0) {
       server: {
         load: (source, load, error, progress, abort, headers) => {
           fetch(source)
-            .then(res => res.blob())
+            .then((res) => res.blob())
             .then(load)
             .catch(error);
-        }
-      }
+        },
+      },
     });
   });
 }
@@ -590,6 +590,7 @@ if (settingRoleCreateForm) {
 // End Setting Role Create Form
 
 // Profile Edit Form
+
 const profileEditForm = document.querySelector("#profile-edit-form");
 if (profileEditForm) {
   const validation = new JustValidate("#profile-edit-form");
@@ -633,19 +634,8 @@ if (profileEditForm) {
       },
     ])
     .onSuccess((event) => {
-      const fullName = event.target.fullName.value;
-      const email = event.target.email.value;
-      const phone = event.target.phone.value;
-      const avatars = filePond.avatar.getFiles();
-      let avatar = null;
-      if (avatars.length > 0) {
-        avatar = avatars[0].file;
-      }
-
-      console.log(fullName);
-      console.log(email);
-      console.log(phone);
-      console.log(avatar);
+      // Chỉ cần gọi submit, trình duyệt sẽ tự động gửi các input và file ảnh gốc đi
+      event.target.submit();
     });
 }
 // End Profile Edit Form
@@ -739,16 +729,18 @@ if (racketCreateForm) {
     });
 }
 
-
-
 function toggleMenu() {
   const menu = document.getElementById("createMenu");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 document.addEventListener("click", function (e) {
   const box = document.querySelector(".create-box");
-  if (!box.contains(e.target)) {
-    document.getElementById("createMenu").style.display = "none";
+  const menu = document.getElementById("createMenu");
+
+  if (box && menu) {
+    if (!box.contains(e.target)) {
+      menu.style.display = "none";
+    }
   }
 });
 // Filter-status
@@ -764,7 +756,7 @@ if (filterStatus) {
       url.searchParams.delete("status");
     }
     window.location.href = url.href;
-  })
+  });
   //Hiển thị lựa chọn mặc định
   const valueCurrent = url.searchParams.get("status");
   if (valueCurrent) {
@@ -772,7 +764,7 @@ if (filterStatus) {
   }
 }
 //End Filter-status
-//Fileter-Create-By 
+//Fileter-Create-By
 const filterCreateBy = document.querySelector("[filter-create-by]");
 if (filterCreateBy) {
   const url = new URL(window.location.href);
@@ -784,14 +776,14 @@ if (filterCreateBy) {
       url.searchParams.delete("createdBy");
     }
     window.location.href = url.href;
-  })
+  });
   const valueCurrent = url.searchParams.get("createdBy");
   if (valueCurrent) {
     filterCreateBy.value = valueCurrent;
   }
 }
 //End filterCreateBy
-//Reset 
+//Reset
 const btnReset = document.querySelector("[btn-reset]");
 
 if (btnReset) {
@@ -800,19 +792,38 @@ if (btnReset) {
     window.location.href = url;
   });
 }
-//Page 
+//Page
 const filterPage = document.querySelector("[filter-page]");
 if (filterPage) {
   const url = new URL(window.location.href);
   filterPage.addEventListener("change", () => {
     const value = filterPage.value;
-    if (value)
-      url.searchParams.set("page", value);
+    if (value) url.searchParams.set("page", value);
     else url.searchParams.delete("page");
     window.location.href = url.href;
-  })
+  });
   const valueCurrent = url.searchParams.get("page");
-  if (valueCurrent)
-    filterPage.value = valueCurrent;
+  if (valueCurrent) filterPage.value = valueCurrent;
 }
 //End Page
+document.addEventListener("DOMContentLoaded", function () {
+  const cameraBtn = document.querySelector(".profile-avatar-edit");
+  const avatarInput = document.getElementById("avatar");
+  const avatarContainer = document.querySelector(".profile-avatar");
+
+  if (cameraBtn && avatarInput) {
+    cameraBtn.addEventListener("click", function () {
+      avatarInput.click();
+    });
+    avatarInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          avatarContainer.innerHTML = `<img src="${e.target.result}" alt="Avatar Preview" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});

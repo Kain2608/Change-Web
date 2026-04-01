@@ -21,7 +21,7 @@ public class JwtAuthService {
 
     private long expire = 1000 * 60 * 60 * 24; // 1 day
 
-    // CREATE TOKEN
+
     public String generateToken(String email, long userId, List<String> permissions) {
         return Jwts.builder()
                 .claim("email", email)

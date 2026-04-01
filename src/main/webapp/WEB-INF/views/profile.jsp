@@ -7,7 +7,6 @@
 <head>
   <title>Thông tin cá nhân</title>
   <%@ include file="/WEB-INF/views/layout/default.jsp" %>
-  <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 
 <body>
@@ -36,7 +35,7 @@
         <div class="profile-avatar">
           <c:choose>
             <c:when test="${not empty profile.avatar}">
-              <img src="${profile.avatar}" alt="Avatar">
+              <img src="${profile.avatar}" name="avatarFile" alt="Avatar">
             </c:when>
             <c:otherwise>
               <i class="fa-solid fa-user"></i>
@@ -55,11 +54,11 @@
         <div class="profile-hero-meta">
           <span class="profile-hero-badge">
             <i class="fa-solid fa-shield-halved"></i>
-            ${not empty profile.role ? profile.role : 'Admin'}
+            ${not empty profile.role ? profile.role : 'User'}
           </span>
           <span class="profile-hero-role">
             <i class="fa-solid fa-briefcase" style="margin-right:4px;font-size:11px;"></i>
-            ${not empty profile.positionCompany ? profile.positionCompany : 'Chưa cập nhật'}
+            ${not empty profile.position ? profile.position : 'Chưa cập nhật'}
           </span>
         </div>
       </div>
@@ -134,7 +133,7 @@
                   <i class="fa-solid fa-briefcase field-icon"></i>
                   <input class="field-control field-readonly" type="text"
                     id="positionCompany"
-                    value="${profile.positionCompany}"
+                    value="${profile.position}"
                     readonly>
                 </div>
               </div>
@@ -150,17 +149,9 @@
                     readonly>
                 </div>
               </div>
-
-              <%-- Avatar input ẩn cho filepond --%>
               <div style="display:none;">
-                <input type="file" id="avatar" name="avatar"
-                  accept="image/*"
-                  image-default="${profile.avatar}"
-                  filepond-image>
+                <input type="file" id="avatar" name="avatarFile" accept="image/*">
               </div>
-
-            </div><%-- /form-grid --%>
-          </div><%-- /pcard-body --%>
 
           <div class="form-actions">
             <button type="submit" class="btn-primary">
