@@ -74,7 +74,7 @@ public class UserController {
         UserModel user = userService.findByEmail(email);
 
         List<String> permissions = userService.getPermissions(user.getId());
-
+        
         String token = jwtAuthService.generateToken(
                 user.getEmail(),
                 user.getId(),

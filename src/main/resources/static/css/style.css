@@ -3075,3 +3075,25 @@ textarea.field-control { padding-left: 16px; }
   border-color: #E53935;
 }
 /* End Role */
+/* 403 */
+/* Chỉ tập trung vào cái "ruột" ở giữa thôi */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.error-card {
+    /* Giữ nguyên code trang trí hộp lỗi của bạn ở đây */
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.error-code {
+    font-size: 100px;
+    color: var(--color-primary); /* Dùng biến màu của hệ thống luôn cho đồng bộ */
+}
+/* End 403 */
