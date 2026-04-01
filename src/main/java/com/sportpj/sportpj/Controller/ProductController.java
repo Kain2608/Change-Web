@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sportpj.sportpj.Model.RacketModel;
+import com.sportpj.sportpj.Model.ShoesModel;
 import com.sportpj.sportpj.Service.RacketService;
+import com.sportpj.sportpj.Service.ShoesService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,8 +26,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ProductController {
   @Autowired
   RacketService racketService;
+  @Autowired
+  ShoesService shoesService;
 
-  @InitBinder("racketModel")
+  @InitBinder({"racketModel", "shoesModel"})
     public void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("avatar");
     }
@@ -48,5 +52,17 @@ public class ProductController {
   @GetMapping("/shoes-create")
   public String shoesCreate(){
     return "shoesCreate"; 
+  }
+
+  @PostMapping("/shoes-create")
+  public String postShoesCreate(
+      @ModelAttribute ShoesModel shoesModel,
+      RedirectAttributes redirect,
+      @RequestParam(name = "avatar", required = false) MultipartFile avatarFile,
+      HttpServletRequest request
+  ) {
+    shoesService.saveShoes(shoesModel, avatarFile, request);
+    redirect.addFlashAttribute("success", "Tao giay thanh cong");
+    return "redirect:/admin/product/shoes-create";
   }
 }

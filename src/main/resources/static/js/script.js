@@ -729,6 +729,23 @@ if (racketCreateForm) {
     });
 }
 
+const shoesCreateForm = document.querySelector("#shoes-create-form");
+if (shoesCreateForm) {
+  const validationShoes = new JustValidate("#shoes-create-form");
+  validationShoes
+    .addField("#name", [{ rule: "required", errorMessage: "Vui lòng nhập tên giày!" }])
+    .addField("#category", [{ rule: "required", errorMessage: "Vui lòng chọn danh mục!" }])
+    .addField("#size", [{ rule: "required", errorMessage: "Vui lòng nhập size!" }])
+    .addField("#price", [{ rule: "required", errorMessage: "Vui lòng nhập giá!" }])
+    .onSuccess((event) => {
+      // Logic xử lý dữ liệu trước khi submit
+      event.target.submit();
+    });
+}
+
+
+
+
 function toggleMenu() {
   const menu = document.getElementById("createMenu");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
