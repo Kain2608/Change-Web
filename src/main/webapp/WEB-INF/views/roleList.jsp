@@ -6,7 +6,7 @@
 <head>
   <title>Quản lý phân quyền</title>
   <%@ include file="/WEB-INF/views/layout/default.jsp" %>
-  <link rel="stylesheet" href="assets/css/role.css">
+  <link rel="stylesheet" href="/css/role.css">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
 
   <div class="role-page-header">
     <h1 class="box-title">Quản lý phân quyền</h1>
-    <a href="/admin/role/create" class="btn-create" id="btnOpenCreate">
+    <a href="/admin/setting/role/create" class="btn-create" id="btnOpenCreate">
       <i class="fa-solid fa-plus"></i> Thêm vai trò
     </a>
   </div>

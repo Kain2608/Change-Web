@@ -64,7 +64,7 @@
             <button type="submit" class="btn-primary rc-btn-full">
               <i class="fa-solid fa-plus"></i> Tạo vai trò
             </button>
-            <a href="/admin/role/list" class="btn-secondary rc-btn-full">Huỷ</a>
+            <a href="/admin/setting/role/list" class="btn-secondary rc-btn-full">Huỷ</a>
           </div>
         </div>
 

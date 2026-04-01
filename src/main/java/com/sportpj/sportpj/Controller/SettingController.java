@@ -26,7 +26,7 @@ import com.sportpj.sportpj.annotation.RequirePermission;
 
 @Controller
 @RequestMapping("/admin/setting")
-public class RoleController {
+public class SettingController {
     @Autowired
     RoleService roleService;
     @Autowired
@@ -40,8 +40,15 @@ public class RoleController {
     public void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("permission");
     }
-
-    // Yêu cầu quyền xem role
+    @GetMapping("list")
+    public String getMethodName() {
+        return "settingList";
+    }
+    @GetMapping("/website")
+    public String getWebsite() {
+        return "website";
+    }
+    
     @RequirePermission("ROLE_READ")
     @GetMapping("/role/list")
     public String getRolePage(Model model,RoleModel roleModel) {
@@ -57,7 +64,6 @@ public class RoleController {
         return "roleList";
     }
 
-    // Yêu cầu quyền thêm role
     @RequirePermission("ROLE_CREATE")
     @GetMapping("/role/create")
     public String getCreate(Model model) {
@@ -68,7 +74,6 @@ public class RoleController {
         return "roleCreate";
     }
 
-    // Yêu cầu quyền thêm role (khi submit form)
     @RequirePermission("ROLE_CREATE")
     @PostMapping("/role/create")
     public String createPost(@ModelAttribute RoleModel roleModel, RedirectAttributes redirect,@RequestParam(required = false) List<String> permission){

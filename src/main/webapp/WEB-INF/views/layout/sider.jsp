@@ -13,7 +13,7 @@
     <hr>
 
     <ul class="inner-menu">
-        <li><a href="/admin/setting"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
+        <li><a href="/admin/setting/list"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
         <li><a href="/admin/profile"><i class="fa-solid fa-user-gear"></i> Thông tin cá nhân</a></li>
         <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
     </ul>
