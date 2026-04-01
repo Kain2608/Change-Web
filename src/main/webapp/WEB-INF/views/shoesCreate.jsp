@@ -5,13 +5,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tạo giày cầu lông</title>
+  <title>Tao giay cau long</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
   <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/vmvrvx4s91ngnwxk4xwccnt0e8p93eqwn9ld96cu2xb9nkpd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
   <script src="<c:url value='/js/tinymce-config.js'/>"></script>
 </head>
@@ -33,86 +36,104 @@
 </header>
 
 <nav class="sider">
-    <ul class="inner-menu">
-        <li><a  href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-        <li><a class="active" href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quản lý danh mục</a></li>
-        <li><a href="/admin/product/list"><i class="fa-solid fa-table-list"></i> Quản lý sản phẩm</a></li>
-        <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
-        <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
-        <li><a href='#'><i class="fa-solid fa-newspaper"></i>Quản lý tin tức</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-group"></i> Thông tin liên hệ và phản hồi</a></li>
-    </ul>
+  <ul class="inner-menu">
+    <li><a href="#"><i class="fa-solid fa-gauge-high"></i> Tong quan</a></li>
+    <li><a href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quan ly danh muc</a></li>
+    <li><a class="active" href="/admin/product/list"><i class="fa-solid fa-table-list"></i> Quan ly san pham</a></li>
+    <li><a href="#"><i class="fa-solid fa-list-check"></i> Quan ly don hang</a></li>
+    <li><a href="#"><i class="fa-solid fa-user"></i> Quan ly nguoi dung</a></li>
+    <li><a href="#"><i class="fa-solid fa-newspaper"></i> Quan ly tin tuc</a></li>
+    <li><a href="#"><i class="fa-solid fa-user-group"></i> Thong tin lien he va phan hoi</a></li>
+  </ul>
 
-    <hr>
+  <hr>
 
-    <ul class="inner-menu">
-        <li><a href="#"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
-        <li><a href="#"><i class="fa-solid fa-user-gear"></i> Thông tin cá nhân</a></li>
-        <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
-    </ul>
+  <ul class="inner-menu">
+    <li><a href="#"><i class="fa-solid fa-gear"></i> Cai dat chung</a></li>
+    <li><a href="#"><i class="fa-solid fa-user-gear"></i> Thong tin ca nhan</a></li>
+    <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Dang xuat</a></li>
+  </ul>
 </nav>
 
 <div class="sider-overlay"></div>
 
 <main class="main">
-  <h1 class="box-title">Tạo giày cầu lông</h1>
+  <h1 class="box-title">Tao giay cau long</h1>
 
   <div class="section-8">
     <form id="shoes-create-form" method="post" action="/admin/product/shoes-create" enctype="multipart/form-data">
-
       <div class="inner-group">
-        <label class="inner-label" for="name">Tên giày</label>
+        <label class="inner-label" for="name">Ten giay</label>
         <input type="text" id="name" name="name">
       </div>
+
       <div class="inner-group">
-        <label class="inner-label" for="parent">Danh mục cha</label>
-        <input type="text" id="parent" name="parent">
+        <label class="inner-label" for="category">Danh muc</label>
+        <input type="text" id="category" name="category" placeholder="Vi du: Giay cau long">
       </div>
+
       <div class="inner-group">
-        <label class="inner-label">Trạng thái</label>
-        <select name="status">
-          <option value="active">Hoạt động</option>
-          <option value="inactive">Dừng</option>
+        <label class="inner-label" for="brand">Thuong hieu</label>
+        <input type="text" id="brand" name="brand" placeholder="Vi du: Yonex">
+      </div>
+
+      <div class="inner-group">
+        <label class="inner-label" for="status">Trang thai</label>
+        <select id="status" name="status">
+          <option value="active">Hoat dong</option>
+          <option value="inactive">Dung</option>
         </select>
       </div>
+
       <div class="inner-group">
         <label class="inner-label" for="size">Size</label>
-        <input type="text" id="size" name="size" placeholder="vd: 40-45">
+        <input type="text" id="size" name="size" placeholder="Vi du: 40-45">
       </div>
 
       <div class="inner-group">
-        <label class="inner-label" for="target">Đối tượng</label>
+        <label class="inner-label" for="target">Doi tuong</label>
         <select id="target" name="target">
-          <option>Nam</option>
-          <option>Nữ</option>
-          <option>Unisex</option>
+          <option value="Nam">Nam</option>
+          <option value="Nu">Nu</option>
+          <option value="Unisex">Unisex</option>
         </select>
       </div>
 
       <div class="inner-group">
-        <label class="inner-label" for="price">Giá</label>
-        <input type="number" id="price" name="price" placeholder="vd: 1200000">
+        <label class="inner-label" for="price">Gia</label>
+        <input type="number" id="price" name="price" placeholder="Vi du: 1200000">
       </div>
 
       <div class="inner-group inner-two-col">
-        <label class="inner-label" for="avatar">Ảnh</label>
+        <label class="inner-label" for="avatar">Anh</label>
         <div class="inner-upload-image">
           <input type="file" id="avatar" accept="image/*" image-default filepond-image name="avatar">
         </div>
       </div>
 
       <div class="inner-group inner-two-col">
-        <label class="inner-label" for="description">Mô tả</label>
+        <label class="inner-label" for="description">Mo ta</label>
         <textarea id="description" textarea-mce name="description"></textarea>
       </div>
 
       <div class="inner-button inner-two-col">
-        <button type="submit">Tạo giày</button>
+        <button type="submit">Tao giay</button>
       </div>
-
     </form>
-    <div class="inner-back"><a href="#">Quay lại danh sách</a></div>
+
+    <div class="inner-back"><a href="#">Quay lai danh sach</a></div>
   </div>
+
+  <c:if test="${not empty success}">
+    <script>
+      toastr.success("${success}");
+    </script>
+  </c:if>
+  <c:if test="${not empty error}">
+    <script>
+      toastr.error("${error}");
+    </script>
+  </c:if>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
