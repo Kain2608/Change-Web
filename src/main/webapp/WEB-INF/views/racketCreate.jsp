@@ -27,8 +27,8 @@
 <nav class="sider">
   <ul class="inner-menu">
     <li><a  href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-    <li><a class="active" href="#"><i class="fa-solid fa-table-cells-large"></i> Quản lý danh mục</a></li>
-    <li><a href="#"><i class="fa-solid fa-table-list"></i> Quản lý sản phẩm</a></li>
+    <li><a href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quan ly danh mục</a></li>
+    <li><a class="active" href="/admin/product/list"><i class="fa-solid fa-table-list"></i> Quan ly sản phẩm</a></li>
     <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
     <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
     <li><a href="#"><i class="fa-solid fa-user-group"></i> Thông tin liên hệ</a></li>
@@ -47,7 +47,7 @@
   <h1 class="box-title">Tạo vợt cầu lông</h1>
 
   <div class="section-8">
-    <form id="racket-create-form" method="post" action="/admin/product/racket-create" enctype="multipart/form-data">
+    <form id="racket-create-form" method="post" action="<c:url value='/admin/product/racket-create'/>" enctype="multipart/form-data">
 
       <div class="inner-group">
         <label class="inner-label" for="name">Tên vợt</label>

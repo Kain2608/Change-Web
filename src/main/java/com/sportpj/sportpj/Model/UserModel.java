@@ -20,7 +20,6 @@ public class UserModel {
     private String role; 
     @Column(name = "position")
     private String position;
-    private String positionCompany;
     private String status;
     private String avatar;
     private String createdBy;
@@ -51,8 +50,6 @@ public class UserModel {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    public String getPositionCompany() { return positionCompany; }
-    public void setPositionCompany(String positionCompany) { this.positionCompany = positionCompany; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

@@ -128,11 +128,11 @@
 
               <%-- Chức vụ (readonly) --%>
               <div class="field-group">
-                <label class="field-label" for="positionCompany">Chức vụ</label>
+                <label class="field-label" for="position">Chức vụ</label>
                 <div class="field-icon-wrap">
                   <i class="fa-solid fa-briefcase field-icon"></i>
                   <input class="field-control field-readonly" type="text"
-                    id="positionCompany"
+                    id="position" name="position"
                     value="${profile.position}"
                     readonly>
                 </div>

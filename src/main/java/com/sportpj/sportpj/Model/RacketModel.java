@@ -31,6 +31,8 @@ public class RacketModel {
     private String brand;
     private String createdBy;
     private String updatedBy;
+    private String slug;
+    private String type;
 
     @CreationTimestamp
     @Column(updatable = false,columnDefinition = "DATETIME(0)")
@@ -91,5 +93,16 @@ public class RacketModel {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+    public String getSlug() {
+        return slug;
+    }
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+    public String getType() {
+        return type;
+    }   
+    public void setType(String type) {
+        this.type = type;
+    }
 }

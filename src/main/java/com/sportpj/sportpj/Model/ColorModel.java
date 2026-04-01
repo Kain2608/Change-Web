@@ -4,21 +4,19 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "sizes")
+@Table(name = "colors")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Size {
-
+public class ColorModel { // Đổi tên thành ColorModel cho đồng bộ với ShoesModel
     @Id
-    @Column(name = "size_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "size_name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "size_order")
-    private Integer order;
+    @Column(name = "code") 
+    private String code;
 }

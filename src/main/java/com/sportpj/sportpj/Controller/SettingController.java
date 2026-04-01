@@ -80,11 +80,11 @@ public class SettingController {
         try{
             roleService.createRole(roleModel, permission);
             redirect.addFlashAttribute("success","Tạo thành công");
-            return "redirect:/admin/role/create";
+            return "redirect:/admin/setting/role/create";
         }
         catch(Exception e){
             redirect.addFlashAttribute("error","Loi");
-            return "redirect:/admin/role/create";
+            return "redirect:/admin/setting/role/create";
         }
     }      
 }

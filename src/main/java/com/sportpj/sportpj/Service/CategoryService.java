@@ -34,7 +34,7 @@ public class CategoryService {
     slug = slug.replaceAll("[^a-z0-9\\s-]", "");
     slug = slug.trim().replaceAll("\\s+", "-");
     return slug;
-}
+  }
   public UserModel getCurrentUser(HttpServletRequest request){
     String email = jwtHelper.getEmail(request);
     if(email != null){

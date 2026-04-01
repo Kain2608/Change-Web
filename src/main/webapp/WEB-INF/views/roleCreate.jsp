@@ -25,7 +25,7 @@
   </nav>
   <div class="rcard">                        
   <div class="rcard-header">...</div>
-  <form action="/admin/role/create" method="post">
+  <form action="/admin/setting/role/create" method="post">
     <div class="rcard-body">
 
       <div class="role-create-layout">        

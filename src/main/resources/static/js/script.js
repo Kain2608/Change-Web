@@ -844,3 +844,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+
+
+
+
+function openModal() {
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+function goTo(type) {
+  window.location.href = "/admin/product/" + type;
+}
+document.getElementById("filterType").addEventListener("change", function () {
+    const selectedType = this.value;
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        const type = row.getAttribute("data-type");
+
+        if (!selectedType || type === selectedType) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+if (buttonCreate) {
+  buttonCreate.addEventListener("click", () => {
+    const firstItem = listItem.querySelector(".inner-schedule-item");
+    const cloneItem = firstItem.cloneNode(true);
+
+    // 1. Reset tất cả các ô nhập text/number về rỗng
+    cloneItem.querySelectorAll("input").forEach(input => {
+      input.value = "";
+    });
+
+    // 2. Reset tất cả các thẻ select (Size và Màu) về lựa chọn đầu tiên ("-- Chọn --")
+    cloneItem.querySelectorAll("select").forEach(select => {
+      select.selectedIndex = 0;
+    });
+
+    // 3. Xử lý phần thân (nếu có dùng TinyMCE cho từng dòng)
+    const body = cloneItem.querySelector(".inner-schedule-body");
+    if (body) {
+      const id = `mce_${Date.now()}`;
+      body.innerHTML = `<textarea textarea-mce id="${id}"></textarea>`;
+    }
+
+    listItem.appendChild(cloneItem);
+  });
+}

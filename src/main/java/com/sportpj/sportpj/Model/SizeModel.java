@@ -4,19 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table (name = "colors")
+@Table(name = "sizes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Color {
+public class SizeModel {
     @Id
-    @Column(name = "color_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "color_name", nullable = false)
-    private String name;
-    @Column(name = "color_code" )
-    private String code; 
 
+    @Column(name = "name", nullable = false, unique = true)
+    private String name; // Ví dụ: "40", "41", "M", "L"
 }
