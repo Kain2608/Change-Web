@@ -693,42 +693,36 @@ if (profileChangePasswordForm) {
     });
 }
 // End Profile Change Password Form
-//Racket Create Form
+// Racket Create Form
 const racketCreateForm = document.querySelector("#racket-create-form");
+
 if (racketCreateForm) {
   const validationRacket = new JustValidate("#racket-create-form");
+
   validationRacket
     .addField("#name", [
       { rule: "required", errorMessage: "Vui lòng nhập tên vợt!" },
     ])
-    .addField("#length", [
-      { rule: "required", errorMessage: "Vui lòng nhập chiều dài!" },
+    .addField("#categoryId", [ // Đổi id cho khớp với JSP mới
+      { rule: "required", errorMessage: "Vui lòng chọn danh mục!" },
     ])
-    .addField("#weight", [
-      { rule: "required", errorMessage: "Vui lòng nhập trọng lượng!" },
+    .addField("#brandId", [
+      { rule: "required", errorMessage: "Vui lòng chọn thương hiệu!" },
     ])
     .addField("#price", [
-      { rule: "required", errorMessage: "Vui lòng nhập giá!" },
+      { rule: "required", errorMessage: "Vui lòng nhập giá gốc!" },
+    ])
+    .addField("#stock", [
+      { rule: "required", errorMessage: "Vui lòng nhập số lượng tồn kho!" },
     ])
     .onSuccess((event) => {
-      event.preventDefault();
-      const data = {
-        name: event.target.name.value,
-        category: event.target.category.value,
-        brand: event.target.brand.value,
-        status: event.target.status.value,
-        length: event.target.length.value,
-        weight: event.target.weight.value,
-        style: event.target.style.value,
-        price: event.target.price.value,
-        description: tinymce.get("description").getContent(),
-        avatar: filePond.avatar?.getFiles()[0]?.file || null,
-      };
+      if (window.tinymce) {
+        tinymce.triggerSave(); 
+      }
 
       event.target.submit();
     });
 }
-
 const shoesForm = document.querySelector("#shoes-create-form");
 
 if (shoesForm) {

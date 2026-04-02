@@ -39,7 +39,7 @@ public class ProductController {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private BrandRepository brandRepository; // Thêm Repository cho Brand
+    private BrandRepository brandRepository; 
 
     @InitBinder({ "racketModel", "shoesModel" })
     public void initBinder(WebDataBinder binder) {
@@ -91,7 +91,6 @@ public class ProductController {
         return "productList";
     }
 
-    // ===== SHOES SECTION =====
     @GetMapping("/shoes-create")
     public String shoesCreate(Model model) {
         model.addAttribute("colors", colorRepository.findAll());
@@ -112,7 +111,7 @@ public class ProductController {
                                   RedirectAttributes redirect,
                                   HttpServletRequest request) {
         
-        // Truyền đầy đủ các tham số mới vào Service
+
         shoesService.saveShoes(shoesModel, avatarFile, brandId, categoryId, sizeIds, colorIds, stocks, request);
         
         redirect.addFlashAttribute("success", "Tạo giày thành công");
@@ -141,8 +140,7 @@ public class ProductController {
                                 @RequestParam(name = "avatar", required = false) MultipartFile avatarFile,
                                 RedirectAttributes redirect,
                                 HttpServletRequest request) {
-        
-        // Cập nhật Service update với các tham số ID
+
         shoesService.updateShoes(id, shoesModel, avatarFile, brandId, categoryId, sizeIds, colorIds, stocks, request);
         
         redirect.addFlashAttribute("success", "Cập nhật giày thành công");
@@ -160,5 +158,62 @@ public class ProductController {
         return "redirect:/admin/product/list";
     }
     
-    // ... Phần Racket giữ nguyên như code cũ của bạn ...
+
+    @GetMapping("/racket-create")
+    public String racketCreate(Model model) {
+
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
+        return "racketCreate";
+    }
+
+    @PostMapping("/racket-create")
+    public String postRacketCreate(
+            @ModelAttribute RacketModel racketModel,
+            @RequestParam(name = "avatar", required = false) MultipartFile avatarFile,
+            RedirectAttributes redirect,
+            HttpServletRequest request) {
+        
+        racketService.saveRacket(racketModel, avatarFile, request);
+        
+        redirect.addFlashAttribute("success", "Tạo vợt thành công");
+        return "redirect:/admin/product/list";
+    }
+
+    @GetMapping("/edit/racket/{id}")
+    public String getRacketEditPage(@PathVariable("id") long id, Model model) {
+        RacketModel racket = racketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy vợt"));
+        
+        model.addAttribute("racketDetail", racket);
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
+        return "racketEdit";
+    }
+
+    @PostMapping("/edit/racket/{id}")
+    public String postEditRacket(
+            @PathVariable("id") long id, 
+            @ModelAttribute RacketModel racketModel,
+            @RequestParam(name = "avatar", required = false) MultipartFile avatarFile,
+            RedirectAttributes redirect, 
+            HttpServletRequest request) {
+        
+        racketService.updateRacket(id, racketModel, avatarFile, request);
+        
+        redirect.addFlashAttribute("success", "Chỉnh sửa vợt thành công");
+        return "redirect:/admin/product/edit/racket/" + id;
+    }
+
+    @GetMapping("/delete/racket/{id}")
+    public String deleteRacket(@PathVariable("id") long id, RedirectAttributes redirect) {
+        try {
+            racketService.deleteRacket(id);
+            redirect.addFlashAttribute("success", "Xóa vợt thành công");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("error", "Xóa thất bại: " + e.getMessage());
+        }
+        return "redirect:/admin/product/list";
+    }
+
 }

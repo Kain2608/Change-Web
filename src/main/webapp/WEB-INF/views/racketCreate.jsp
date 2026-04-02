@@ -3,130 +3,127 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>Tạo vợt cầu lông</title>
-
-  <%@ include file="/WEB-INF/views/layout/default.jsp" %>
+    <meta charset="UTF-8">
+    <title>Tạo vợt cầu lông</title>
+    <%@ include file="/WEB-INF/views/layout/default.jsp" %>
 </head>
 <body>
 
-<header class="header">
-  <div class="inner-logo"><a href="#"><span>28</span><span>Admin</span></a></div>
-  <div class="inner-wrap">
-    <div class="inner-notify"><img src="<c:url value='/images/icon-bell.svg'/>" alt=""><span>6</span></div>
-    <div class="inner-account">
-      <div class="inner-avatar"><img src="<c:url value='/images/avatar.jpg'/>" alt=""></div>
-      <div class="inner-text">
-        <div class="inner-name">Le Van A</div>
-        <div class="inner-role">Admin</div>
-      </div>
-    </div>
-    <button class="inner-button-menu"><i class="fa-solid fa-bars"></i></button>
-  </div>
-</header>
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 
-<nav class="sider">
-  <ul class="inner-menu">
-    <li><a  href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-    <li><a href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quan ly danh mục</a></li>
-    <li><a class="active" href="/admin/product/list"><i class="fa-solid fa-table-list"></i> Quan ly sản phẩm</a></li>
-    <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
-    <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
-    <li><a href="#"><i class="fa-solid fa-user-group"></i> Thông tin liên hệ</a></li>
-  </ul>
-  <hr>
-  <ul class="inner-menu">
-    <li><a href="#"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
-    <li><a href="#"><i class="fa-solid fa-user-gear"></i> Thông tin cá nhân</a></li>
-    <li><a class="inner-logout" href="#"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
-  </ul>
-</nav>
+<%@ include file="/WEB-INF/views/layout/sider.jsp" %>
 
 <div class="sider-overlay"></div>
 
 <main class="main">
-  <h1 class="box-title">Tạo vợt cầu lông</h1>
+    <h1 class="box-title">Tạo vợt cầu lông</h1>
 
-  <div class="section-8">
-    <form id="racket-create-form" method="post" action="<c:url value='/admin/product/racket-create'/>" enctype="multipart/form-data">
+    <div class="section-8">
+        <form id="racket-create-form" method="post" action="<c:url value='/admin/product/racket-create'/>" enctype="multipart/form-data">
 
-      <div class="inner-group">
-        <label class="inner-label" for="name">Tên vợt</label>
-        <input type="text" id="name" name="name">
-      </div>
-      <div class="inner-group">
-        <label class="inner-label" for="category">Danh mục</label>
-        <select id="category" name="category">
-          <option value="">-- Chọn danh mục --</option>
-          <option value="">Danh mục 1</option>
-          <option value="">Danh mục 2</option>
-        </select>
-      </div>
-      <div class="inner-group">
-        <label for="brand" class="inner-label">Thương hiệu</label>
-        <select name="brand" id="brand">
-          <option value="">-- Chọn thương hiệu --</option>
-          <option value="">TH1</option>
-          <option value="">TH2</option>
-        </select>
-      </div>
-      <div class="inner-group">
-        <label class="inner-label">Trạng thái</label>
-        <select name="status" id="status">
-          <option value="active">Hoạt động</option>
-          <option value="inactive">Dừng</option>
-        </select>
-      </div>
-      <div class="inner-group">
-        <label class="inner-label" for="length">Chiều dài</label>
-        <input type="text" id="length" name="length" placeholder="vd:675mm">
-      </div>
+            <div class="inner-group">
+                <label class="inner-label" for="name">Tên vợt</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-      <div class="inner-group">
-        <label class="inner-label" for="weight">Trọng lượng</label>
-        <input type="text" id="weight" name="weight" placeholder="vd:83g">
-      </div>
-    
-      <div class="inner-group">
-        <label class="inner-label" for="price">Giá</label>
-        <input type="number" id="price" name="price">
-      </div>
-      <div class="inner-group">
-        <label class="inner-label" for="style">Phong cách chơi</label>
-        <select id="style" name="style">
-          <option value="actack">Công</option>
-          <option value="defend">Thủ</option>
-          <option value="balance">Cân bằng</option>
-        </select>
-      </div>
+            <div class="inner-group">
+                <label class="inner-label" for="categoryId">Danh mục</label>
+                <select id="categoryId" name="category.id">
+                    <option value="">-- Chọn danh mục --</option>
+                    <c:forEach items="${categories}" var="cat">
+                        <option value="${cat.id}">${cat.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-      <div class="inner-group inner-two-col">
-        <label class="inner-label" for="avatar">Ảnh đại diện</label>
-        <div class="inner-upload-image">
-          <input type="file" id="avatar" accept="image/*" filepond-image name="avatar">
-        </div>
-      </div>
+            <div class="inner-group">
+                <label for="brandId" class="inner-label">Thương hiệu</label>
+                <select name="brand.id" id="brandId">
+                    <option value="">-- Chọn thương hiệu --</option>
+                    <c:forEach items="${brands}" var="b">
+                        <option value="${b.id}">${b.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-      <div class="inner-group inner-two-col">
-        <label class="inner-label" for="description">Mô tả</label>
-        <textarea id="description" textarea-mce name="description"></textarea>
-      </div>
+            <div class="inner-group">
+                <label class="inner-label">Trạng thái</label>
+                <select name="status" id="status">
+                    <option value="active">Hoạt động</option>
+                    <option value="inactive">Dừng</option>
+                </select>
+            </div>
 
-      <div class="inner-button inner-two-col">
-        <button type="submit">Tạo vợt</button>
-      </div>
+            <div class="inner-group">
+                <label class="inner-label" for="price">Giá gốc</label>
+                <input type="number" id="price" name="price" value="0">
+            </div>
 
-    </form>
-    <div class="inner-back"><a href="#">Quay lại danh sách</a></div>
-  </div>
+            <div class="inner-group">
+                <label class="inner-label" for="newPrice">Giá mới</label>
+                <input type="number" id="newPrice" name="newPrice" value="0">
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="stock">Số lượng tồn kho</label>
+                <input type="number" id="stock" name="stock" value="0">
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="weight">Trọng lượng</label>
+                <input type="text" id="weight" name="weight" placeholder="vd: 3U, 4U">
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="tension">Mức căng tối đa</label>
+                <input type="text" id="tension" name="tension" placeholder="vd: 30 Lbs">
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="stiffness">Độ cứng</label>
+                <select id="stiffness" name="stiffness">
+                    <option value="Stiff">Cứng</option>
+                    <option value="Medium">Trung bình</option>
+                    <option value="Flexible">Dẻo</option>
+                </select>
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="balancePoint">Điểm cân bằng</label>
+                <select id="balancePoint" name="balancePoint">
+                    <option value="Head Heavy">Công (Nặng đầu)</option>
+                    <option value="Head Light">Thủ (Nhẹ đầu)</option>
+                    <option value="Even Balance">Cân bằng</option>
+                </select>
+            </div>
+
+            <div class="inner-group">
+                <label class="inner-label" for="length">Chiều dài</label>
+                <input type="text" id="length" name="length" >
+            </div>
+
+            <div class="inner-group inner-two-col">
+                <label class="inner-label" for="avatar">Ảnh đại diện</label>
+                <div class="inner-upload-image">
+                    <input type="file" id="avatar" accept="image/*" filepond-image name="avatar">
+                </div>
+            </div>
+
+            <div class="inner-group inner-two-col">
+                <label class="inner-label" for="description">Mô tả</label>
+                <textarea id="description" textarea-mce name="description"></textarea>
+            </div>
+
+            <div class="inner-button inner-two-col">
+                <button type="submit">Tạo vợt</button>
+            </div>
+
+        </form>
+        <div class="inner-back"><a href="/admin/product/list">Quay lại danh sách</a></div>
+    </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
-<script src="<c:url value='/js/script.js'/>"></script>
+<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
 </body>
 </html>
