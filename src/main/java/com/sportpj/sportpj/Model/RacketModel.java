@@ -1,12 +1,21 @@
 package com.sportpj.sportpj.Model;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.text.NumberFormat;
 import java.util.Locale;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
@@ -27,8 +36,7 @@ public class RacketModel {
     private Integer price;    
     private Integer newPrice; 
     private Integer stock;    
-    
-    // Thông số kỹ thuật
+
     private String weight;       
     private String gripSize;     
     private String tension;      

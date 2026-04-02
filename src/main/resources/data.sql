@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS sport;
+USE sport;
 -- Dữ liệu cho bảng Category (Vợt cầu lông, Vợt...)
 INSERT IGNORE INTO category (id, name, status, avatar, created_at, updated_at, created_by, updated_by) 
 VALUES 
@@ -31,6 +33,7 @@ INSERT IGNORE INTO role (id, name, description) VALUES
 (3, 'Admin', 'Quản lý toàn hệ thống'),
 (4, 'Manager', 'Quản lý danh mục, sản phẩm và đơn hàng'),
 (5, 'User', 'Người dùng hệ thống');
+
 INSERT INTO brands (name, description, status) VALUES 
 ('Yonex', 'Thương hiệu cầu lông số 1 thế giới đến từ Nhật Bản.', 'active'),
 ('Victor', 'Thương hiệu lớn từ Đài Loan, tài trợ cho nhiều tay vợt hàng đầu.', 'active'),
