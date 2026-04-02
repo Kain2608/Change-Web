@@ -40,8 +40,10 @@
     </nav>
 
     <!-- Hero Section -->
+
     <header class="hero">
         <div class="hero-content">
+            
             <span class="hero-subtitle">Bứt phá giới hạn</span>
             <h1 class="hero-title">NÂNG TẦM<br>HIỆU SUẤT</h1>
             <p class="hero-desc">Khám phá bộ sưu tập dụng cụ cầu lông chuyên nghiệp. Từ những đôi giày tốc độ đến những cây vợt đầy uy lực.</p>
@@ -52,7 +54,7 @@
         </div>
     </header>
 
-    <section class="category-slider-section">
+<section class="category-slider-section">
 
     <div class="section-header">
         <h2 class="section-title">Danh Mục</h2>
@@ -68,37 +70,30 @@
 
     <div class="product-slider-wrapper">
         <div class="product-slider" id="cat-slider">
-
-            <div class="cat-card cat-shoes">
-                <div class="cat-info">
-                    <h2>Giày Thể Thao</h2>
-                    <p>Công nghệ đệm Power Cushion+ êm ái tối đa.</p>
-                    <a href="#" class="cat-link">
-                        Xem tất cả <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+            <c:forEach var="item" items="${shoeCategories}">
+                <%-- Chèn ảnh đại diện vào làm background --%>
+                <div class="cat-card cat-shoes" style="background-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%), url('${item.avatar}');", url('${item.avatar}');">
+                    <div class="cat-info">
+                        <h2>${item.name}</h2>
+                        <p>${item.description}</p>
+                        <a href="/category/${item.slug}" class="cat-link">
+                            Xem tất cả <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="cat-card cat-rackets">
-                <div class="cat-info">
-                    <h2>Vợt Cầu Lông</h2>
-                    <p>Uy lực và kiểm soát tuyệt đối.</p>
-                    <a href="#" class="cat-link">
-                        Xem tất cả <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+            </c:forEach>
+            
+            <c:forEach var="item" items="${racketCategories}">
+                <div class="cat-card cat-rackets" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('${item.avatar}');">
+                    <div class="cat-info">
+                        <h2>${item.name}</h2>
+                        <p>${item.description}</p>
+                        <a href="/category/${item.slug}" class="cat-link">
+                            Xem tất cả <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="cat-card cat-accessories">
-                <div class="cat-info">
-                    <h2>Phụ Kiện</h2>
-                    <p>Đầy đủ trang bị cho mọi trận đấu.</p>
-                    <a href="#" class="cat-link">
-                        Xem tất cả <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
+            </c:forEach>
         </div>
     </div>
 
@@ -166,16 +161,16 @@
     </section>
 
     <!-- Special Banner -->
-    <section class="promo-banner">
+    <!-- <section class="promo-banner">
         <div class="promo-content">
             <h2 class="promo-title">YONEX ASTROX 100ZZ<br>PHIÊN BẢN GIỚI HẠN</h2>
             <p>Trải nghiệm sức mạnh bùng nổ từ cây vợt được tin dùng bởi các nhà vô địch thế giới.</p>
             <a href="#" class="btn btn-white">SỞ HỮU NGAY</a>
         </div>
         <div class="promo-img">
-            <img src="https://images.unsplash.com/photo-1626225967045-2c3606624644?w=800" alt="Yonex Astrox 100ZZ">
+            <img src="/images/screen.png" alt="Yonex Astrox 100ZZ">
         </div>
-    </section>
+    </section> -->
 
     <!-- Featured Section: Rackets (Slider Version) -->
     <section class="product-section">

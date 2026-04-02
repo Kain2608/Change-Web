@@ -24,47 +24,19 @@
 </head>
 <body>
 
-<header class="header">
-  <div class="inner-logo"><a href="#"><span>28</span><span>Admin</span></a></div>
-  <div class="inner-wrap">
-    <div class="inner-notify"><img src="<c:url value='/images/icon-bell.svg'/>" alt=""><span>6</span></div>
-    <div class="inner-account">
-      <div class="inner-avatar"><img src="<c:url value='/images/avatar.jpg'/>" alt=""></div>
-      <div class="inner-text">
-        <div class="inner-name">Admin</div>
-        <div class="inner-role">Quản trị viên</div>
-      </div>
-    </div>
-    <button class="inner-button-menu"><i class="fa-solid fa-bars"></i></button>
-  </div>
-</header>
-
-<nav class="sider">
-  <ul class="inner-menu">
-    <li><a href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan</a></li>
-    <li><a href="/admin/category/list"><i class="fa-solid fa-table-cells-large"></i> Quản lý danh mục</a></li>
-    <li><a class="active" href="/admin/product/list"><i class="fa-solid fa-table-list"></i> Quản lý sản phẩm</a></li>
-    <li><a href="#"><i class="fa-solid fa-list-check"></i> Quản lý đơn hàng</a></li>
-    <li><a href="#"><i class="fa-solid fa-user"></i> Quản lý người dùng</a></li>
-  </ul>
-  <hr>
-  <ul class="inner-menu">
-    <li><a href="#"><i class="fa-solid fa-gear"></i> Cài đặt hệ thống</a></li>
-    <li><a class="inner-logout" href="/admin/logout"><i class="fa-solid fa-power-off"></i> Đăng xuất</a></li>
-  </ul>
-</nav>
-
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF/views/layout/sider.jsp" %>
 <div class="sider-overlay"></div>
 
 <main class="main">
-  <h1 class="box-title">Tạo giày cầu lông mới</h1>
+  <h1 class="box-title">Tạo giày</h1>
   
   <div class="section-8">
     <form id="shoes-create-form" method="post" action="/admin/product/shoes-create" enctype="multipart/form-data">
       
       <div class="inner-group">
         <label class="inner-label" for="name">Tên giày</label>
-        <input type="text" id="name" name="name" placeholder="VD: Giày Cầu Lông Yonex 65Z3">
+        <input type="text" id="name" name="name" >
       </div>
       
       <div class="inner-group">
@@ -90,9 +62,9 @@
       <div class="inner-group">
         <label class="inner-label" for="target">Đối tượng</label>
         <select id="target" name="target">
+          <option value="both">Cả hai</option>
           <option value="Nam">Nam</option>
           <option value="Nu">Nữ</option>
-          <option value="Unisex">Unisex</option>
         </select>
       </div>
 

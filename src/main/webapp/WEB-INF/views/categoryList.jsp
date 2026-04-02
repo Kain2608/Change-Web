@@ -113,10 +113,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             </thead>
 
             <tbody>
-              <c:forEach var="item" items="${categoryList}">
+              <c:forEach var="item" items="${categoryList}" varStatus="loop">
               <tr>
                 <td class="inner-center"><input type="checkbox" /></td>
-                <td class="inner-center">${item.id}</td>
+                <td class="inner-center">${loop.count}</td>
                 <td>${item.name}</td>
                 <td>
                   <img class="inner-avatar" src= ${item.avatar} />

@@ -15,4 +15,5 @@ public interface CategoryRepository extends JpaRepository<CategoryModel, Long>{
   List<CategoryModel> findByStatusAndCreatedBy(String status, String createdBy);
   boolean existsBySlug(String slug);
   long countByStatus(String status);
+  List<CategoryModel> findByNameStartingWith(String prefix);
 }
