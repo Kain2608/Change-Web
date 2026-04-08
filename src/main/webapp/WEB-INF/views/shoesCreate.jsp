@@ -7,20 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tạo giày cầu lông - Admin</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  
-  <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
-  <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-  
-  <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  
-  <script src="https://cdn.tiny.cloud/1/vmvrvx4s91ngnwxk4xwccnt0e8p93eqwn9ld96cu2xb9nkpd/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-  <script src="<c:url value='/js/tinymce-config.js'/>"></script>
+  <%@ include file="/WEB-INF/views/layout/default.jsp" %>
 </head>
 <body>
 
@@ -48,7 +35,15 @@
           </c:forEach>
         </select>
       </div>
-
+      <div class="inner-group">
+        <label class="inner-label">Trạng thái</label>
+        <select name="status" id="status">
+            <option value="active">Còn hàng</option>
+            <option value="inactive">Hết hàng</option>
+            <option value="new">Mới</option>
+            <option value="sales">Hàng khuyến mãi</option>
+      </select>
+      </div>
       <div class="inner-group">
         <label class="inner-label" for="brandId">Thương hiệu</label>
         <select id="brandId" name="brandId">
@@ -147,13 +142,8 @@
   </c:if>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
-<script src="<c:url value='/js/script.js'/>"></script>
 
 </body>
 </html>

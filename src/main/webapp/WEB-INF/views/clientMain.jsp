@@ -1,6 +1,9 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN"/>
+<fmt:setBundle basename="messages"/>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9,8 +12,10 @@
     <title>ShopVnb Store - Giày & Vợt Cầu Lông Chuyên Nghiệp</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <!-- Link to external CSS -->
+    
     <link rel="stylesheet" href="<c:url value='/css/client.css'/>">
 </head>
 <body>
@@ -22,9 +27,7 @@
                 <li><a href="#" class="active">Tất cả</a></li>
                 <li><a href="#">Giày</a></li>
                 <li><a href="#">Vợt</a></li>
-                <li><a href="#">Phụ kiện</a></li>
                 <li><a href="#">Khuyến mãi</a></li>
-                <li><a href="#">Tin tức</a></li>
             </ul>
             <div class="nav-actions">
                 <div class="search-box">
@@ -46,7 +49,7 @@
             
             <span class="hero-subtitle">Bứt phá giới hạn</span>
             <h1 class="hero-title">NÂNG TẦM<br>HIỆU SUẤT</h1>
-            <p class="hero-desc">Khám phá bộ sưu tập dụng cụ cầu lông chuyên nghiệp. Từ những đôi giày tốc độ đến những cây vợt đầy uy lực.</p>
+            <p class="hero-desc">Khám phá bộ sưu tập giày, vợt cao cấp. Từ những đôi giày tốc độ đến những cây vợt đầy uy lực.</p>
             <div class="hero-btns">
                 <a href="#" class="btn btn-primary">Mua Ngay</a>
                 <a href="#" class="btn btn-outline">Khám Phá BST</a>
@@ -72,7 +75,7 @@
         <div class="product-slider" id="cat-slider">
             <c:forEach var="item" items="${shoeCategories}">
                 <%-- Chèn ảnh đại diện vào làm background --%>
-                <div class="cat-card cat-shoes" style="background-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%), url('${item.avatar}');", url('${item.avatar}');">
+                <div class="cat-card cat-shoes" style="background-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%), url('${item.avatar}');">
                     <div class="cat-info">
                         <h2>${item.name}</h2>
                         <p>${item.description}</p>
@@ -97,12 +100,10 @@
         </div>
     </div>
 
-</section>
-
-
+<c:forEach var="item" items="${cateMap}">
     <section class="product-section">
         <div class="section-header">
-            <h2 class="section-title">Giày Thể Thao</h2>
+            <h2 class="section-title">${item.key.name}</h2>
             <div class="slider-controls">
                 <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
                 <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
@@ -111,55 +112,25 @@
         </div>
         <div class="product-slider-wrapper">
             <div class="product-slider">
-                <!-- Product Card 1 -->
+                 <c:forEach var="prod" items="${item.value}">
                 <div class="product-card">
                     <div class="badge-new">MỚI</div>
                     <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" alt="Yonex Power Cushion">
+                        <img src="${prod.avatar}" alt="${prod.name}">
                     </div>
                     <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (120)</div>
-                        <h3 class="product-name">Yonex Power Cushion 65Z3</h3>
-                        <div class="product-price">3.250.000₫</div>
+                        <div class="rating"><i class="fa-solid fa-star"></i> ${prod.getRandomRating()} (${prod.getRandomReviewCount()})</div>
+                        <h3 class="product-name">${prod.name}</h3>
+                        <div class="product-price">
+                            <fmt:formatNumber value="${prod.newPrice}" type="number" pattern="#,###" /> đ
+                        </div>
                     </div>
                 </div>
-                <!-- Product Card 2 -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400" alt="Victor P9200II">
-                    </div>
-                    <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (85)</div>
-                        <h3 class="product-name">Victor P9200II Blue</h3>
-                        <div class="product-price">2.890.000₫</div>
-                    </div>
-                </div>
-                <!-- Product Card 3 -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400" alt="Lining Blade">
-                    </div>
-                    <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> 5.0 (42)</div>
-                        <h3 class="product-name">Lining Blade DF-01</h3>
-                        <div class="product-price">1.650.000₫</div>
-                    </div>
-                </div>
-                <!-- Product Card 4 -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400" alt="Mizuno Wave Claw">
-                    </div>
-                    <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.7 (210)</div>
-                        <h3 class="product-name">Mizuno Wave Claw 2</h3>
-                        <div class="product-price">2.450.000₫</div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </section>
-
+</c:forEach>
     <!-- Special Banner -->
     <!-- <section class="promo-banner">
         <div class="promo-content">
@@ -173,9 +144,10 @@
     </section> -->
 
     <!-- Featured Section: Rackets (Slider Version) -->
+<c:forEach var="item" items="${cateMapping}">
     <section class="product-section">
         <div class="section-header">
-            <h2 class="section-title">Vợt Cầu Lông</h2>
+            <h2 class="section-title">${item.key.name}</h2>
             <div class="slider-controls">
                 <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
                 <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
@@ -184,45 +156,24 @@
         </div>
         <div class="product-slider-wrapper">
             <div class="product-slider">
+                <c:forEach var="racket" items="${item.value}">
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1626225967045-2c3606624644?w=400" alt="Astrox 88D Pro">
+                        <img src="${racket.avatar}" alt="${racket.name}">
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Yonex Astrox 88D Pro</h3>
-                        <div class="product-price">4.150.000₫</div>
+                        <div class="rating"><i class="fa-solid fa-star"></i> ${racket.getRandomRating()} (${racket.getRandomReviewCount()})</div>
+                        <h3 class="product-name">${racket.name}</h3>
+                        <div class="product-price">
+                            <fmt:formatNumber value="${racket.newPrice}" type="number" pattern="#,###" /> đ
+                        </div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1626225967045-2c3606624644?w=400" alt="Thruster Ryuga">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Victor Thruster Ryuga II</h3>
-                        <div class="product-price">3.850.000₫</div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1626225967045-2c3606624644?w=400" alt="Aeronaut 9000C">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Lining Aeronaut 9000C</h3>
-                        <div class="product-price">4.500.000₫</div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="https://images.unsplash.com/photo-1626225967045-2c3606624644?w=400" alt="Nanoflare 800">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Yonex Nanoflare 800</h3>
-                        <div class="product-price">3.950.000₫</div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </section>
+</c:forEach>
 
     <!-- Info Section -->
     <section class="info-strip">
@@ -259,18 +210,10 @@
             <div class="footer-links">
                 <h4>Hỗ Trợ Khách Hàng</h4>
                 <ul>
-                    <li><a href="#">Hướng dẫn chọn vợt</a></li>
-                    <li><a href="#">Chính sách đổi trả</a></li>
-                    <li><a href="#">Hệ thống cửa hàng</a></li>
+                    <li><a href="/contact">Liên hệ hỗ trợ khách hàng</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Thông Tin</h4>
-                <ul>
-                    <li><a href="#">Liên hệ hỗ trợ</a></li>
-                    <li><a href="#">Điều khoản dịch vụ</a></li>
-                </ul>
-            </div>
+            
             <div class="footer-social">
                 <h4>Theo Dõi Chúng Tôi</h4>
                 <div class="social-icons">
@@ -284,5 +227,7 @@
             <p>&copy; 2024 ShopVnb Store. The Kinetic Ocean Experience.</p>
         </div>
     </footer>
+    
+    <script src="/js/client.js"></script>
 </body>
 </html>

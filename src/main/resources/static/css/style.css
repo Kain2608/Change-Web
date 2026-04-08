@@ -763,7 +763,10 @@ a {
   background-color: rgba(0, 182, 155, 0.2);
   color: #00B69B;
 }
-
+.badge-purple {
+  background-color: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+}
 .badge-red {
   background-color: rgba(239, 55, 38, 0.2);
   color: #EF3826;

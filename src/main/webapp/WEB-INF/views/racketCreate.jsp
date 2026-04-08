@@ -49,9 +49,11 @@
             <div class="inner-group">
                 <label class="inner-label">Trạng thái</label>
                 <select name="status" id="status">
-                    <option value="active">Hoạt động</option>
-                    <option value="inactive">Dừng</option>
-                </select>
+                    <option value="active">Còn hàng</option>
+                    <option value="inactive">Hết hàng</option>
+                    <option value="new">Mới</option>
+                    <option value="sales">Hàng khuyến mãi</option>
+            </select>
             </div>
 
             <div class="inner-group">

@@ -126,4 +126,11 @@ public class ShoesModel {
         if (updatedAt == null) return null;
         return updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+    public double getRandomRating() {
+        return Math.round((4.0 + Math.random()) * 10.0) / 10.0;
+    }
+
+    public int getRandomReviewCount() {
+        return (int) (Math.random() * 400) + 15;
+    }
 }

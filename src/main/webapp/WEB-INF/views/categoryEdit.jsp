@@ -50,7 +50,7 @@
 
       <div class="inner-group inner-two-col">
         <label class="inner-label" for="description">Mô tả</label>
-        <textarea name="description" id="description" textarea-mce></textarea>
+        <textarea name="description" id="description" textarea-mce>${categoryDetail.description}</textarea>
       </div>
 
       <div class="inner-button inner-two-col">

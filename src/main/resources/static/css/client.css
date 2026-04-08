@@ -180,7 +180,19 @@ body {
 .view-all-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; margin-left: 1rem; }
 
 .product-slider-wrapper { overflow: hidden; }
-.product-slider { display: flex; gap: 2rem; transition: transform 0.5s ease; }
+.product-slider { 
+    display: flex; 
+    gap: 2rem; 
+    overflow-x: auto; /* BẮT BUỘC PHẢI CÓ DÒNG NÀY ĐỂ CUỘN ĐƯỢC */
+    scroll-behavior: smooth; /* Giúp cuộn mượt hơn */
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn xấu xí trên IE/Edge */
+    scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+}
+
+/* Ẩn thanh cuộn ngang mặc định của Chrome/Safari cho đẹp */
+.product-slider::-webkit-scrollbar {
+    display: none;
+}
 
 .product-card {
     min-width: calc(25% - 1.5rem);

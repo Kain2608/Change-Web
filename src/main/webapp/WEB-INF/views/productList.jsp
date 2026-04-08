@@ -56,8 +56,10 @@
         <div class="inner-item">
           <select filter-status>
             <option value="">Trạng thái</option>
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm dừng</option>
+            <option value="active">Còn hàng</option>
+            <option value="inactive">Hết hàng</option>
+            <option value="new">Mới</option>
+            <option value="sales">Hàng khuyến mại</option>
           </select>
         </div>
         <div class="inner-item">
@@ -127,8 +129,18 @@
                 
                 <td class="inner-center">
                   <c:choose>
-                    <c:when test="${item.status == 'active'}"><div class="badge badge-green">Hoạt động</div></c:when>
-                    <c:otherwise><div class="badge badge-red">Tạm dừng</div></c:otherwise>
+                    <c:when test="${item.status == 'active'}">
+                      <div class="badge badge-green">Còn hàng</div>
+                    </c:when>
+                    <c:when test="${item.status == 'inactive'}">
+                      <div class="badge badge-red">Hết hàng</div>
+                    </c:when>
+                    <c:when test="${item.status == 'sales'}">
+                      <div class="badge badge-orange">Khuyến mại</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="badge badge-purple">Mới</div>
+                    </c:otherwise>
                   </c:choose>
                 </td>
                 <td>

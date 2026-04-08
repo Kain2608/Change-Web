@@ -86,4 +86,11 @@ public class RacketModel {
     public String getUpdatedAtFormatted() {
         return updatedAt != null ? updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
     }
+    public double getRandomRating() {
+    return Math.round((4.0 + Math.random()) * 10.0) / 10.0;
+}
+
+    public int getRandomReviewCount() {
+        return (int) (Math.random() * 400) + 15;
+    }
 }
