@@ -107,7 +107,7 @@
             <div class="slider-controls">
                 <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
                 <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
-                <a href="#" class="view-all-link">Xem thêm</a>
+                <a href="/${item.key.slug}" class="view-all-link">Xem tất cả</a>
             </div>
         </div>
         <div class="product-slider-wrapper">
@@ -116,7 +116,9 @@
                 <div class="product-card">
                     <div class="badge-new">MỚI</div>
                     <div class="product-img">
-                        <img src="${prod.avatar}" alt="${prod.name}">
+                        <a href="/product/${item.key.slug}/${prod.slug}"> 
+                            <img src="${prod.avatar}" alt="${prod.name}">
+                        </a>
                     </div>
                     <div class="product-info">
                         <div class="rating"><i class="fa-solid fa-star"></i> ${prod.getRandomRating()} (${prod.getRandomReviewCount()})</div>
@@ -151,7 +153,7 @@
             <div class="slider-controls">
                 <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
                 <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
-                <a href="#" class="view-all-link">Xem tất cả</a>
+                <a href="/${item.key.slug}" class="view-all-link">Xem tất cả</a>
             </div>
         </div>
         <div class="product-slider-wrapper">
@@ -159,7 +161,9 @@
                 <c:forEach var="racket" items="${item.value}">
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="${racket.avatar}" alt="${racket.name}">
+                        <a href="/product/${item.key.slug}/${racket.slug}"> 
+                            <img src="${racket.avatar}" alt="${racket.name}">
+                        </a>
                     </div>
                     <div class="product-info">
                         <div class="rating"><i class="fa-solid fa-star"></i> ${racket.getRandomRating()} (${racket.getRandomReviewCount()})</div>

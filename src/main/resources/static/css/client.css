@@ -758,3 +758,326 @@ Product Detail */
     color: #ffffff;
 }
 /* End Contact link
+/* All Product */
+/* ==================== VELOCITY ALL PRODUCTS PAGE ==================== */
+
+/* Page Header */
+.velocity-page-header {
+    padding: 5rem 10% 2rem;
+    margin-top: 60px;
+}
+
+.velocity-main-title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1;
+    letter-spacing: -3px;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+}
+
+.velocity-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Catalog Layout: Sidebar + Main ── */
+.velocity-catalog-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 3rem;
+    padding: 2rem 10% 5rem;
+    align-items: start;
+}
+
+/* ── Sidebar ── */
+.velocity-sidebar {
+    position: sticky;
+    top: 90px;
+}
+
+.velocity-filter-group {
+    margin-bottom: 2rem;
+}
+
+.velocity-filter-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dark);
+    margin: 0 0 0.75rem 0;
+}
+
+.velocity-filter-select {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #D1D9E0;
+    border-radius: 8px;
+    background: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    appearance: auto;
+    outline: none;
+    transition: var(--transition);
+}
+
+.velocity-filter-select:focus {
+    border-color: var(--primary-blue);
+}
+
+.velocity-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 0.35rem 0;
+}
+
+.velocity-checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+/* ── Product Grid ── */
+.velocity-catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+/* ── Product Card ── */
+.velocity-card-box {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.velocity-card-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.velocity-card {
+    position: relative;
+    background: #EEF2FF;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Badge */
+.velocity-card-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.velocity-badge-blue {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.velocity-badge-purple {
+    background: #7C3AED;
+    color: var(--white);
+}
+
+.velocity-badge-orange {
+    background: #EA580C;
+    color: var(--white);
+}
+
+/* Product image */
+.velocity-card-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.velocity-card-img img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.velocity-card-box:hover .velocity-card-img img {
+    transform: scale(1.05);
+}
+
+/* Card Info */
+.velocity-card-info {
+    padding: 1rem 1.25rem 1.25rem;
+}
+
+.velocity-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.3rem;
+}
+
+.velocity-product-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.3;
+    flex: 1;
+    padding-right: 0.5rem;
+}
+
+.velocity-rating {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #FBBF24;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.velocity-rating i {
+    font-size: 0.75rem;
+}
+
+.velocity-product-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0 0 0.6rem 0;
+    line-height: 1.5;
+}
+
+.velocity-product-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+/* ── Pagination ── */
+.velocity-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.velocity-page-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1.5px solid #E2E8F0;
+    background: var(--white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.velocity-page-btn:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.velocity-page-btn.velocity-active {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+    color: var(--white);
+}
+
+/* ── Footer (velocity page) ── */
+.velocity-footer-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.velocity-footer-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.velocity-footer-links a:hover {
+    color: var(--primary-blue);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+    .velocity-catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .velocity-catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .velocity-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .velocity-main-title {
+        font-size: 3rem;
+        letter-spacing: -1px;
+    }
+}
+
+@media (max-width: 600px) {
+    .velocity-catalog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .velocity-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .velocity-page-header {
+        padding: 4rem 5% 1.5rem;
+    }
+
+    .velocity-catalog-layout {
+        padding: 1rem 5% 3rem;
+    }
+}
+/* ==================== END VELOCITY ALL PRODUCTS ==================== */

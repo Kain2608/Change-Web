@@ -948,3 +948,140 @@ document.querySelector(".sider-overlay")?.addEventListener("click", () => {
     document.querySelector(".sider")?.classList.remove("active");
     document.querySelector(".sider-overlay")?.classList.remove("active");
 });
+//SOcket
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("=== SOCKET DEBUG BẮT ĐẦU ===");
+
+    const userInfo = document.getElementById("user-info");
+    if (!userInfo) {
+        console.log("LỖI: Không tìm thấy #user-info!");
+        return;
+    }
+
+    const APP_USER_ID = userInfo.getAttribute("data-user-id");
+    const APP_USER_ROLE = userInfo.getAttribute("data-user-role");
+
+    console.log("APP_USER_ID:", APP_USER_ID);
+    console.log("APP_USER_ROLE:", APP_USER_ROLE);
+
+    if (!APP_USER_ID || !APP_USER_ROLE) {
+        return;
+    }
+
+    if (APP_USER_ROLE.toUpperCase() !== "ADMIN") {
+ 
+        return;
+    }
+
+    if (typeof io === "undefined") {
+  
+        return;
+    }
+
+    console.log("Đang kết nối socket với userId:", APP_USER_ID);
+
+    const socket = io("http://localhost:9092", {
+        query: { userId: APP_USER_ID },
+        transports: ["websocket", "polling"],
+    });
+
+    socket.on("connect", () => {
+
+    });
+
+    socket.on("connect_error", (err) => {
+
+    });
+
+    socket.on("disconnect", (reason) => {
+
+    });
+
+    socket.on("load_unread", (dataList) => {
+
+        const list = document.getElementById("notif-list");
+        if (!list) {
+
+            return;
+        }
+
+        list.innerHTML = "";
+
+        // dataList có thể là array hoặc object tùy thư viện serialize
+        let items = [];
+        if (Array.isArray(dataList)) {
+            items = dataList;
+        } else if (dataList && typeof dataList === "object") {
+            // netty-socketio đôi khi wrap trong object
+            items = Object.values(dataList);
+        }
+
+    
+
+        if (items.length === 0) {
+            list.innerHTML = '<li class="notif-item" style="color:#999;text-align:center;padding:16px;">Không có thông báo mới</li>';
+            return;
+        }
+
+        items.forEach((item, index) => {
+            const content = item.content || item || "Thông báo mới";
+            showNotificationOnUI(content);
+        });
+
+        updateBadgeCount(items.length);
+    });
+
+    socket.on("new_notification", (content) => {
+
+
+        showNotificationOnUI(content);
+        incrementBadge();
+
+        if (typeof toastr !== "undefined") {
+            toastr.info("Bạn có thông báo mới!");
+        }
+    });
+});
+
+function showNotificationOnUI(message) {
+
+    const list = document.getElementById("notif-list");
+    if (list) {
+        // Xóa placeholder nếu có
+        const placeholder = list.querySelector(".notif-placeholder");
+        if (placeholder) placeholder.remove();
+
+        const newItem = document.createElement("li");
+        newItem.className = "notif-item";
+        newItem.innerText = message;
+        list.prepend(newItem);
+    } else {
+        console.log("LỖI: Không tìm thấy #notif-list trong showNotificationOnUI!");
+    }
+}
+
+function updateBadgeCount(count) {
+    console.log("updateBadgeCount:", count);
+    const badge = document.getElementById("notif-count");
+    if (badge) {
+        if (count > 0) {
+            badge.innerText = count > 99 ? "99+" : count;
+            badge.style.display = "flex";
+        } else {
+            badge.style.display = "none";
+        }
+    } else {
+        console.log("LỖI: Không tìm thấy #notif-count!");
+    }
+}
+
+function incrementBadge() {
+    const badge = document.getElementById("notif-count");
+    if (badge) {
+        const current = parseInt(badge.innerText) || 0;
+        const next = current + 1;
+        badge.innerText = next > 99 ? "99+" : next;
+        badge.style.display = "flex";
+  
+    }
+}

@@ -310,7 +310,52 @@ a {
   gap: 40px;
   margin-right: 30px;
 }
+/* Khung dropdown mặc định ẩn */
+.notif-dropdown {
+    display: block;        /* Luôn để block nhưng dùng opacity */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease; /* Hiệu ứng trượt nhẹ từ dưới lên */
+    
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;   /* Bo góc mềm mại hơn */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 8px 0;
+    margin-top: 15px;
+    z-index: 1000;
+}
 
+/* Hiện khung khi hover */
+.inner-notify:hover .notif-dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notif-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.notif-item:last-child {
+    border-bottom: none;
+}
+
+.notif-item:hover {
+    background: #f9fafb;
+}
 .header .inner-notify {
   position: relative;
   cursor: pointer;
@@ -323,19 +368,24 @@ a {
 
 .header .inner-notify span {
   background-color: #F93C65;
-  height: 16px;
-  min-width: 16px;
-  padding: 0 4px;
-  display: inline-flex;
+  height: 18px;            /* Tăng nhẹ kích thước để chứa số 2 chữ số */
+  min-width: 18px;
+  padding: 0 5px;
+  
+  /* CỰC KỲ QUAN TRỌNG: Mặc định ẩn bằng display */
+  display: none;           
+  
   align-items: center;
   justify-content: center;
-  border-radius: 25px;
+  border-radius: 50%;      /* Bo tròn hoàn hảo */
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11px;
   color: #fff;
   position: absolute;
-  top: -4px;
-  right: -2px;
+  top: -5px;               /* Căn chỉnh lại vị trí cho đẹp */
+  right: -5px;
+  border: 2px solid #fff;  /* Thêm viền trắng để nổi bật trên nền xanh */
+  z-index: 10;
 }
 
 .header .inner-account {

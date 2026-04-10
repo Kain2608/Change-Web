@@ -32,28 +32,26 @@
             <!-- Form -->
             <div id="ct-form-content">
                 <form id="contactForm" action="/contact" method="post">
-
+                    
                     <div class="ct-row">
                         <div class="ct-field">
                             <label for="name">Họ và tên <span class="ct-required">*</span></label>
-                            <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" />
+                            <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" required>
                         </div>
                         <div class="ct-field">
-                            <label for="phone">Số điện thoại <span class="ct-required">*</span></label>
-                            <input type="tel" id="phone" name="phone" placeholder="0912 345 678" />
+                            <label for="email">Email <span class="ct-required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
                         </div>
                     </div>
 
                     <div class="ct-field">
-                        <label for="email">Địa chỉ email <span class="ct-required">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="email@example.com" />
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" name="address" placeholder="Số 1, Võ Văn Ngân, Thủ Đức...">
                     </div>
-
-                    <div class="ct-sep"></div>
 
                     <div class="ct-field" style="margin-bottom: 0;">
                         <label for="message">Nội dung tin nhắn <span class="ct-required">*</span></label>
-                        <textarea id="message" name="message" placeholder="Chia sẻ với chúng tôi điều bạn cần..."></textarea>
+                        <textarea id="message" name="message" placeholder="Chia sẻ với chúng tôi điều bạn cần..." required></textarea>
                     </div>
 
                     <button type="submit" class="ct-submit-btn">
