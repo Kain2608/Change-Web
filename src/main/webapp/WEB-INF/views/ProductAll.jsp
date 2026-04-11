@@ -47,48 +47,46 @@
         
         <aside class="velocity-sidebar">
             <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Sort By</h3>
+                <h3 class="velocity-filter-title">Sắp xếp theo</h3>
                 <select class="velocity-filter-select">
-                    <option>Latest Arrivals</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
+                    <option>Mới nhất</option>
+                    <option>Giá: Thấp đến cao</option>
+                    <option>Giá: Cao xuống thấp</option>
                 </select>
             </div>
 
             <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Category</h3>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Badminton Shoes</label>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Pro Rackets</label>
+                <h3 class="velocity-filter-title">Trạng thái</h3>
+                <label class="velocity-checkbox-item"><input type="checkbox" value="new"> Hàng mới về</label>
+                <label class="velocity-checkbox-item"><input type="checkbox" value="sale"> Đang khuyến mãi</label>
             </div>
 
             <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Brand</h3>
+                <h3 class="velocity-filter-title">Danh mục</h3>
+                <label class="velocity-checkbox-item"><input type="checkbox"> Giày cầu lông</label>
+                <label class="velocity-checkbox-item"><input type="checkbox"> Vợt chuyên nghiệp</label>
+            </div>
+
+            <div class="velocity-filter-group">
+                <h3 class="velocity-filter-title">Thương hiệu</h3>
                 <label class="velocity-checkbox-item"><input type="checkbox"> Yonex</label>
                 <label class="velocity-checkbox-item"><input type="checkbox"> Victor</label>
                 <label class="velocity-checkbox-item"><input type="checkbox"> Lining</label>
-            </div>
-
-            <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Price Range</h3>
-                <input type="range" style="width: 100%; accent-color: var(--velocity-primary);" min="50" max="500">
-                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 10px; color: var(--velocity-text-light);">
-                    <span>$50</span>
-                    <span>$500+</span>
-                </div>
             </div>
         </aside>
 
         <main class="velocity-main-content">
             <div class="velocity-catalog-grid">
                 
+                <c:forEach var="prod" items="${products}">
                 <div class="velocity-card-box">
                     <div class="velocity-card">
                         
                         <c:if test="${prod.status == 'new'}">
-                            <div class="velocity-card-badge velocity-badge-blue">NEW EVOLUTION</div>
+                            <div class="velocity-card-badge velocity-badge-blue">HÀNG MỚI</div>
                         </c:if>
                         <c:if test="${prod.status == 'pro'}">
-                            <div class="velocity-card-badge velocity-badge-purple">PRO CHOICE</div>
+                            <div class="velocity-card-badge velocity-badge-purple">CHUYÊN NGHIỆP</div>
                         </c:if>
 
                         <div class="velocity-card-img">
@@ -99,7 +97,7 @@
                     <div class="velocity-card-info">
                         <div class="velocity-card-header">
                             <h3 class="velocity-product-name">${prod.name}</h3>
-                            <span class="velocity-rating"><i class="fa-solid fa-star"></i> ${prod.getRandomRating()}</span>
+                            <span class="velocity-rating"><i class="fa-solid fa-star"></i> ${prod.rating}</span>
                         </div>
                         <p class="velocity-product-desc">${prod.description}</p>
                         <div class="velocity-product-price">
@@ -107,7 +105,9 @@
                         </div>
                     </div>
                 </div>
-                </div>
+                </c:forEach>
+
+            </div>
 
             <div class="velocity-pagination">
                 <button class="velocity-page-btn"><i class="fa-solid fa-chevron-left"></i></button>
@@ -126,10 +126,10 @@
                 <p>© 2024 ShopVnb Store. The Kinetic Ocean Experience.</p>
             </div>
             <div class="velocity-footer-links">
-                <a href="#">About Us</a>
-                <a href="#">Shipping Policy</a>
-                <a href="#">Store Locator</a>
-                <a href="#">Contact Support</a>
+                <a href="#">Về chúng tôi</a>
+                <a href="#">Chính sách giao hàng</a>
+                <a href="#">Hệ thống cửa hàng</a>
+                <a href="#">Liên hệ hỗ trợ</a>
             </div>
         </div>
     </footer>

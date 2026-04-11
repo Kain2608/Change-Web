@@ -1,42 +1,13 @@
 package com.sportpj.sportpj.Model;
 
-import java.text.NumberFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 @Entity
 @Table(name = "rackets")
-@Data 
-public class RacketModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RacketModel extends ProductModel {
 
-    private String name;
-    private String slug;
-    private String avatar;
-    
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
-    private Integer price;    
-    private Integer newPrice; 
     private Integer stock;    
-
     private String weight;       
     private String gripSize;     
     private String tension;      
@@ -44,53 +15,59 @@ public class RacketModel {
     private String stiffness;    
     private String length;       
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryModel category;
-
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private BrandModel brand;
-
-    private String status = "active";
-    private String type = "racket"; 
-
-    private String createdBy;
-    private String updatedBy;
-
-    @CreationTimestamp
-    @Column(updatable = false, columnDefinition = "DATETIME(0)")
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(columnDefinition = "DATETIME(0)")
-    private LocalDateTime updatedAt;
-
-
-    public String getFormattedPrice() {
-        if (newPrice == null) return "Liên hệ";
-        NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
-        return nf.format(newPrice) + "₫";
+    public Integer getStock() {
+        return stock;
     }
 
-    public int getDiscountPercent() {
-        if (price == null || newPrice == null || price <= newPrice) return 0;
-        double discount = ((double) (price - newPrice) / price) * 100;
-        return (int) Math.round(discount);
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
-    public String getCreatedAtFormatted() {
-        return createdAt != null ? createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+    public String getWeight() {
+        return weight;
     }
 
-    public String getUpdatedAtFormatted() {
-        return updatedAt != null ? updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
-    public double getRandomRating() {
-    return Math.round((4.0 + Math.random()) * 10.0) / 10.0;
-}
 
-    public int getRandomReviewCount() {
-        return (int) (Math.random() * 400) + 15;
+    public String getGripSize() {
+        return gripSize;
+    }
+
+    public void setGripSize(String gripSize) {
+        this.gripSize = gripSize;
+    }
+
+    public String getTension() {
+        return tension;
+    }
+
+    public void setTension(String tension) {
+        this.tension = tension;
+    }
+
+    public String getBalancePoint() {
+        return balancePoint;
+    }
+
+    public void setBalancePoint(String balancePoint) {
+        this.balancePoint = balancePoint;
+    }
+
+    public String getStiffness() {
+        return stiffness;
+    }
+
+    public void setStiffness(String stiffness) {
+        this.stiffness = stiffness;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
     }
 }

@@ -18,6 +18,7 @@ import com.sportpj.sportpj.Service.NotifyService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
 @Controller
 public class ContactController {
     @Autowired
@@ -34,13 +35,10 @@ public class ContactController {
 
     @PostMapping("/contact")
     public String postMethodName(@ModelAttribute ContactModel contactModel, Model model, RedirectAttributes redirect, HttpServletRequest request) {
-        // 1. Lưu thông tin liên hệ
+
         contactService.saveContact(contactModel, request);
         
-        // 2. Lấy TẤT CẢ các tài khoản có quyền Admin (Nhớ viết đúng chữ hoa/thường theo DB của bạn)
         List<UserModel> adminUsers = userRepository.findByRole("Admin"); 
-        System.out.println("👉 Số lượng Admin tìm thấy trong DB: " + (adminUsers != null ? adminUsers.size() : 0));
-        // 3. Gửi thông báo cho từng Admin
         if (adminUsers != null && !adminUsers.isEmpty()) {
             for (UserModel admin : adminUsers) {
                 notifyService.sentToUser(admin, contactModel);
@@ -50,4 +48,9 @@ public class ContactController {
         redirect.addFlashAttribute("success", "Gửi thành công");
         return "redirect:/contact";
     }
+    @GetMapping("/admin/contact/list")
+    public String ContactList() {
+        return "contactList";
+    }
+    
 }

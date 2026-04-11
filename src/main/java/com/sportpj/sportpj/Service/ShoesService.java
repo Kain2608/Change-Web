@@ -3,6 +3,7 @@ package com.sportpj.sportpj.Service;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +11,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.sportpj.sportpj.Model.*;
-import com.sportpj.sportpj.Repository.*;
+import com.sportpj.sportpj.Model.ShoeVariantModel;
+import com.sportpj.sportpj.Model.ShoesModel;
+import com.sportpj.sportpj.Model.UserModel;
+import com.sportpj.sportpj.Repository.BrandRepository;
+import com.sportpj.sportpj.Repository.CategoryRepository;
+import com.sportpj.sportpj.Repository.ColorRepository;
+import com.sportpj.sportpj.Repository.ShoeVariantRepository;
+import com.sportpj.sportpj.Repository.ShoesRepository;
+import com.sportpj.sportpj.Repository.SizeRepository;
+import com.sportpj.sportpj.Repository.UserRepository;
 import com.sportpj.sportpj.helpers.JwtHelper;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
@@ -50,17 +60,18 @@ public class ShoesService {
 
     @Transactional
     public ShoesModel saveShoes(ShoesModel shoes, MultipartFile avatarFile, Integer brandId, 
-                                Long categoryId, // ĐÃ SỬA THÀNH LONG
-                                Integer[] sizeIds, Integer[] colorIds, Integer[] stocks, HttpServletRequest request) {
+                                Long categoryId, Integer[] sizeIds, Integer[] colorIds, 
+                                Integer[] stocks, HttpServletRequest request) {
         
         if (avatarFile != null && !avatarFile.isEmpty()) {
             try {
                 Map uploadResult = cloudinary.uploader().upload(avatarFile.getBytes(), ObjectUtils.asMap("folder", "shoes"));
                 shoes.setAvatar(uploadResult.get("secure_url").toString());
-            } catch (IOException e) { e.printStackTrace(); }
+            } catch (IOException e) { 
+                e.printStackTrace(); 
+            }
         }
 
-        // Khớp kiểu Long nên .orElse(null) sẽ hết báo lỗi
         if (brandId != null) shoes.setBrand(brandRepository.findById(brandId).orElse(null));
         if (categoryId != null) shoes.setCategory(categoryRepository.findById(categoryId).orElse(null));
 
@@ -75,8 +86,16 @@ public class ShoesService {
         String slug = toSlug(shoes.getName());
         String originSlug = slug;
         int count = 1;
-        while (shoesRepository.existsBySlug(slug)) { slug = originSlug + "-" + count++; }
+        while (shoesRepository.existsBySlug(slug)) { 
+            slug = originSlug + "-" + count++; 
+        }
         shoes.setSlug(slug);
+
+        double randomRating = Math.round((4.0 + Math.random()) * 10.0) / 10.0;
+        int randomReview = (int) (Math.random() * 400) + 15;
+        shoes.setRating(randomRating);
+        shoes.setReviewCount(randomReview);
+        shoes.setType("shoes");
 
         ShoesModel savedShoe = shoesRepository.save(shoes);
         saveVariants(savedShoe, sizeIds, colorIds, stocks);

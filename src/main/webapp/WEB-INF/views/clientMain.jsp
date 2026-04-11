@@ -121,7 +121,7 @@
                         </a>
                     </div>
                     <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> ${prod.getRandomRating()} (${prod.getRandomReviewCount()})</div>
+                        <div class="rating"><i class="fa-solid fa-star"></i> ${prod.rating} (${prod.reviewCount})</div>
                         <h3 class="product-name">${prod.name}</h3>
                         <div class="product-price">
                             <fmt:formatNumber value="${prod.newPrice}" type="number" pattern="#,###" /> đ
@@ -166,7 +166,7 @@
                         </a>
                     </div>
                     <div class="product-info">
-                        <div class="rating"><i class="fa-solid fa-star"></i> ${racket.getRandomRating()} (${racket.getRandomReviewCount()})</div>
+                        <div class="rating"><i class="fa-solid fa-star"></i> ${racket.rating} (${racket.reviewCount})</div>
                         <h3 class="product-name">${racket.name}</h3>
                         <div class="product-price">
                             <fmt:formatNumber value="${racket.newPrice}" type="number" pattern="#,###" /> đ

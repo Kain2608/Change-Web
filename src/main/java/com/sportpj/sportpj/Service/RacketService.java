@@ -57,7 +57,6 @@ public class RacketService {
     }
 
     public RacketModel saveRacket(RacketModel racket, MultipartFile avatarFile, HttpServletRequest request) {
-        // 1. Xử lý Upload Ảnh
         if (avatarFile != null && !avatarFile.isEmpty()) {
             try {
                 Map uploadResult = cloudinary.uploader().upload(
@@ -69,7 +68,6 @@ public class RacketService {
             }
         }
 
-        // 2. Fix lỗi Hibernate: Load Category và Brand thực tế từ DB
         if (racket.getCategory() != null && racket.getCategory().getId() != null) {
             racket.setCategory(categoryRepository.findById(racket.getCategory().getId()).orElse(null));
         }
@@ -77,7 +75,6 @@ public class RacketService {
             racket.setBrand(brandRepository.findById(racket.getBrand().getId()).orElse(null));
         }
 
-        // 3. Xử lý Slug duy nhất
         String baseSlug = toSlug(racket.getName());
         String finalSlug = baseSlug;
         int count = 1;
@@ -86,17 +83,20 @@ public class RacketService {
         }
         racket.setSlug(finalSlug);
 
-        // 4. Thông tin người tạo
         UserModel user = getCurrentUser(request);
         if (user != null) {
             racket.setCreatedBy(user.getFullName());
             racket.setUpdatedBy(user.getFullName());
         }
 
+        double randomRating = Math.round((4.0 + Math.random()) * 10.0) / 10.0;
+        int randomReview = (int) (Math.random() * 400) + 15;
+        racket.setRating(randomRating);
+        racket.setReviewCount(randomReview);
+
         racket.setType("racket");
         return racketRepository.save(racket);
     }
-
     public RacketModel updateRacket(Long id, RacketModel newData, MultipartFile avatarFile, HttpServletRequest request) {
         RacketModel old = racketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy vợt với ID: " + id));
