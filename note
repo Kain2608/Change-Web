@@ -1,3 +1,14 @@
+ <-- Phần Quân 
+ Làm trang tất cả sản phẩm :
+  - Đọc file Product Model 
+  - file RacketModel Product Model và phần Repository tương tự vs model 
+  -- Làm Phần lọc, sắp xếp trả giao diện (Làm thêm phần lọc loại nữa tôi quên chx viết vào
+      Nó có trường type b lọc theo trường đấy)
+  -- Các nút tất cả click vào -> trang tất cả sản phẩm
+      giày -> trang lọc loại giày
+      vợt -> trang lọc loại vợt
+      (Mấy cái này đều ở header có rồi )
+ Het phan Quan -->
  <!-- Phần code cho trang quản lý người dùng -->
  <!-- <div class="rcard" style="margin-top:20px;">
         <div class="rcard-header">
@@ -100,3 +111,5 @@
     
     // Getter & Setter + Constructor
 } -->
+
+
