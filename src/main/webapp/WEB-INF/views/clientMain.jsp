@@ -24,7 +24,7 @@
         <div class="nav-container">
             <a href="/" class="brand-logo">ShopVnb<span>Store</span></a>
             <ul class="nav-links">
-                <li><a href="#" class="active">Tất cả</a></li>
+                <li><a href="<c:url value='/tat-ca-san-pham'/>" class="btn-view-all">Tất cả</a></li>
                 <li><a href="#">Giày</a></li>
                 <li><a href="#">Vợt</a></li>
                 <li><a href="#">Khuyến mãi</a></li>

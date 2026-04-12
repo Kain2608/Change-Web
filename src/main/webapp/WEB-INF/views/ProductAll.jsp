@@ -45,68 +45,86 @@
 
     <div class="velocity-catalog-layout">
         
-        <aside class="velocity-sidebar">
-            <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Sắp xếp theo</h3>
-                <select class="velocity-filter-select">
-                    <option>Mới nhất</option>
-                    <option>Giá: Thấp đến cao</option>
-                    <option>Giá: Cao xuống thấp</option>
-                </select>
-            </div>
+     <aside class="velocity-sidebar">
+    <form action="<c:url value='/tat-ca-san-pham'/>" method="GET">
+        
+        <div class="velocity-filter-group">
+            <h3 class="velocity-filter-title">Sắp xếp theo</h3>
+            <select name="sort" class="velocity-filter-select" onchange="this.form.submit()">
+                <option value="newest" ${param.sort == 'newest' ? 'selected' : ''}>Mới nhất</option>
+                <option value="priceAsc" ${param.sort == 'priceAsc' ? 'selected' : ''}>Giá: Thấp đến cao</option>
+                <option value="priceDesc" ${param.sort == 'priceDesc' ? 'selected' : ''}>Giá: Cao xuống thấp</option>
+            </select>
+        </div>
 
-            <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Trạng thái</h3>
-                <label class="velocity-checkbox-item"><input type="checkbox" value="new"> Hàng mới về</label>
-                <label class="velocity-checkbox-item"><input type="checkbox" value="sale"> Đang khuyến mãi</label>
-            </div>
+        <div class="velocity-filter-group">
+            <h3 class="velocity-filter-title">Trạng thái</h3>
+            <label class="velocity-checkbox-item">
+                <input type="checkbox" name="stt" value="new" onchange="this.form.submit()"
+                    <c:forEach items="${paramValues.stt}" var="s">
+                        <c:if test="${s == 'new'}">checked</c:if>
+                    </c:forEach>> Hàng mới về
+            </label>
+            <label class="velocity-checkbox-item">
+                <input type="checkbox" name="stt" value="sales" onchange="this.form.submit()"
+                    <c:forEach items="${paramValues.stt}" var="s">
+                        <c:if test="${s == 'sales'}">checked</c:if>
+                    </c:forEach>> Đang khuyến mãi
+            </label>
+        </div>
 
-            <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Danh mục</h3>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Giày cầu lông</label>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Vợt chuyên nghiệp</label>
-            </div>
+        <div class="velocity-filter-group">
+            <h3 class="velocity-filter-title">Danh mục</h3>
+            <c:forEach items="${allCategories}" var="cat">
+                <label class="velocity-checkbox-item">
+                    <input type="checkbox" name="cateIds" value="${cat.id}" onchange="this.form.submit()"
+                        <c:forEach items="${paramValues.cateIds}" var="pId">
+                            <c:if test="${pId == cat.id.toString()}">checked</c:if>
+                        </c:forEach>> ${cat.name}
+                </label>
+            </c:forEach>
+        </div>
 
-            <div class="velocity-filter-group">
-                <h3 class="velocity-filter-title">Thương hiệu</h3>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Yonex</label>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Victor</label>
-                <label class="velocity-checkbox-item"><input type="checkbox"> Lining</label>
-            </div>
-        </aside>
+        <div class="velocity-filter-group">
+    <h3 class="velocity-filter-title">Thương hiệu</h3>
+    <c:forEach items="${brands}" var="brand">
+        <label class="velocity-checkbox-item">
+            <%-- name="brandIds" phải khớp chính xác với biến List trong Java --%>
+            <input type="checkbox" name="brandIds" value="${brand.id}" onchange="this.form.submit()"
+                <c:forEach items="${paramValues.brandIds}" var="bId">
+                    <c:if test="${bId == brand.id.toString()}">checked</c:if>
+                </c:forEach>> ${brand.name}
+        </label>
+    </c:forEach>
+</div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="<c:url value='/tat-ca-san-pham'/>" style="text-decoration: none; color: #d0021b; font-size: 13px;">
+                <i class="fa-solid fa-rotate-right"></i> Làm mới bộ lọc
+            </a>
+        </div>
+    </form>
+</aside>
 
         <main class="velocity-main-content">
-            <div class="velocity-catalog-grid">
-                
-                <c:forEach var="prod" items="${products}">
-                <div class="velocity-card-box">
-                    <div class="velocity-card">
-                        
-                        <c:if test="${prod.status == 'new'}">
-                            <div class="velocity-card-badge velocity-badge-blue">HÀNG MỚI</div>
-                        </c:if>
-                        <c:if test="${prod.status == 'pro'}">
-                            <div class="velocity-card-badge velocity-badge-purple">CHUYÊN NGHIỆP</div>
-                        </c:if>
-
-                        <div class="velocity-card-img">
-                            <img src="${prod.avatar}" alt="${prod.name}">
+           <div class="velocity-catalog-grid">
+                <c:forEach var="prod" items="${listProduct}">
+                    <div class="velocity-card-box">
+                        <div class="velocity-card">
+                            <div class="velocity-card-img">
+                                <a href="<c:url value='/product-detail/${prod.id}'/>">
+                                    <img src="${prod.avatar}" alt="${prod.name}">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="velocity-card-info">
-                        <div class="velocity-card-header">
+                        <div class="velocity-card-info">
                             <h3 class="velocity-product-name">${prod.name}</h3>
-                            <span class="velocity-rating"><i class="fa-solid fa-star"></i> ${prod.rating}</span>
-                        </div>
-                        <p class="velocity-product-desc">${prod.description}</p>
-                        <div class="velocity-product-price">
-                             <fmt:formatNumber value="${prod.newPrice}" type="number" pattern="#,###" /> đ
+                            <div class="velocity-product-price">
+                                <fmt:formatNumber value="${prod.price}" type="number" pattern="#,###" /> VNĐ
+                            </div>
                         </div>
                     </div>
-                </div>
                 </c:forEach>
-
             </div>
 
             <div class="velocity-pagination">
