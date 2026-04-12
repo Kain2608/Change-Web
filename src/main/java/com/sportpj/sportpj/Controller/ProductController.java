@@ -45,7 +45,7 @@ public class ProductController {
     public void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("avatar");
     }
-
+    
     @GetMapping("/list")
     public String getProductPage(Model model, 
                                 @RequestParam(required = false) String status, 
