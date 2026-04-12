@@ -21,4 +21,5 @@ $(document).ready(function() {
         const cardWidth = $slider.children().first().outerWidth(true);
         $slider.animate({ scrollLeft: '-=' + cardWidth }, 300);
     });
+   
 });

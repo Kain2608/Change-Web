@@ -1,18 +1,21 @@
 package com.sportpj.sportpj.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.stream.Collectors;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.sportpj.sportpj.Model.ContactModel;
 import com.sportpj.sportpj.Model.NotificationModel;
 import com.sportpj.sportpj.Model.UserModel;
 import com.sportpj.sportpj.Repository.NotifyRepository;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
@@ -72,7 +75,7 @@ public class NotifyService {
     }
 
     public void sentToUser(UserModel userModel, ContactModel contact) {
-        String content = "Bạn có tin nhắn mới từ " + contact.getName() + ": " + contact.getMessage();
+        String content = "Bạn có tin nhắn mới từ " + contact.getEmail() + ": " + contact.getMessage();
 
         NotificationModel notify = new NotificationModel();
         notify.setContent(content);

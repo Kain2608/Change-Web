@@ -4,15 +4,16 @@ spring:
   jmx:
     enabled: false   
   datasource:
-    url: jdbc:mysql://localhost:3306/sport
+    url: jdbc:mysql://localhost:3308/sport
     username: root
-    password: 
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
