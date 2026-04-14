@@ -33,6 +33,26 @@
                 <li><a href="#">Giày</a></li>
                 <li><a href="#">Vợt</a></li>
             </ul>
+            <div class="nav-actions">
+                <div class="icon-btns">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.clientUser}">
+                            <div class="user-profile">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="user-name">${sessionScope.clientUser.fullName}</span>
+                                <a href="<c:url value='/client/logout'/>" class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/client/login'/>"><i class="fa-solid fa-user"></i></a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
         </div>
     </nav>
 

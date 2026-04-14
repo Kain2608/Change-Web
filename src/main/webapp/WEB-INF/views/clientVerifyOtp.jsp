@@ -30,17 +30,35 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="brand-logo">ShopVnb<span>Store</span></a>
-            <ul class="nav-links">
-                <li><a href="<c:url value='/client/login'/>">Đăng nhập</a></li>
-                <li><a href="<c:url value='/client/register'/>" class="btn-view-all">Đăng ký</a></li>
-            </ul>
+            <c:choose>
+                <c:when test="${not empty sessionScope.clientUser}">
+                    <div class="nav-actions">
+                        <div class="icon-btns">
+                            <div class="user-profile">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="user-name">${sessionScope.clientUser.fullName}</span>
+                                <a href="<c:url value='/client/logout'/>" class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <ul class="nav-links">
+                        <li><a href="<c:url value='/client/login'/>">Đăng nhập</a></li>
+                        <li><a href="<c:url value='/client/register'/>" class="btn-view-all">Đăng ký</a></li>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
         </div>
     </nav>
 
     <div class="auth-wrapper">
         <div class="auth-container">
             <h2 class="auth-title">Xác Nhận Email</h2>
-            <p class="auth-subtitle">Chúng tôi đã gửi 1 mã OTP gồm 6 số vào email <strong>${sessionScope.verifyEmail}</strong>. Vui lòng kiểm tra và nhập mã xác thực (hết hạn sau 5 phút).</p>
+            <p class="auth-subtitle">Chúng tôi đã gửi 1 mã OTP vào email của bạn. Vui lòng kiểm tra và nhập mã xác thực.</p>
             
             <c:if test="${not empty error}">
                 <div class="alert alert-error">${error}</div>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<c:url value='/css/client.css'/>">
     <style>
         .auth-wrapper { padding: 80px 20px; min-height: 60vh; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; }
-        .auth-container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center;}
+        .auth-container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; }
         .auth-title { margin-bottom: 24px; font-size: 24px; font-weight: 700; color: #333; }
         .auth-form .form-group { margin-bottom: 20px; text-align: left; }
         .auth-form label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; }
@@ -28,13 +28,32 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="brand-logo">ShopVnb<span>Store</span></a>
-            <ul class="nav-links">
-                <li><a href="<c:url value='/client/login'/>">Đăng nhập</a></li>
-                <li><a href="<c:url value='/client/register'/>" class="btn-view-all">Đăng ký</a></li>
-            </ul>
+            <c:choose>
+                <c:when test="${not empty sessionScope.clientUser}">
+                    <div class="nav-actions">
+                        <div class="icon-btns">
+                            <div class="user-profile">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="user-name">${sessionScope.clientUser.fullName}</span>
+                                <a href="<c:url value='/client/logout'/>" class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <ul class="nav-links">
+                        <li><a href="<c:url value='/client/login'/>">Đăng nhập</a></li>
+                        <li><a href="<c:url value='/client/register'/>" class="btn-view-all">Đăng ký</a></li>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
         </div>
     </nav>
 

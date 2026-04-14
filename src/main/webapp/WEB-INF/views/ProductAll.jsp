@@ -32,7 +32,21 @@
                 </div>
                 <div class="icon-btns">
                     <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-user"></i></a>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.clientUser}">
+                            <div class="user-profile">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="user-name">${sessionScope.clientUser.fullName}</span>
+                                <a href="<c:url value='/client/logout'/>" class="logout-btn">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/client/login'/>"><i class="fa-solid fa-user"></i></a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -45,66 +59,65 @@
 
     <div class="velocity-catalog-layout">
         
-     <aside class="velocity-sidebar">
-    <form action="<c:url value='/tat-ca-san-pham'/>" method="GET">
-        
-        <div class="velocity-filter-group">
-            <h3 class="velocity-filter-title">Sắp xếp theo</h3>
-            <select name="sort" class="velocity-filter-select" onchange="this.form.submit()">
-                <option value="newest" ${param.sort == 'newest' ? 'selected' : ''}>Mới nhất</option>
-                <option value="priceAsc" ${param.sort == 'priceAsc' ? 'selected' : ''}>Giá: Thấp đến cao</option>
-                <option value="priceDesc" ${param.sort == 'priceDesc' ? 'selected' : ''}>Giá: Cao xuống thấp</option>
-            </select>
-        </div>
+        <aside class="velocity-sidebar">
+            <form action="<c:url value='/tat-ca-san-pham'/>" method="GET">
+                
+                <div class="velocity-filter-group">
+                    <h3 class="velocity-filter-title">Sắp xếp theo</h3>
+                    <select name="sort" class="velocity-filter-select" onchange="this.form.submit()">
+                        <option value="newest" ${param.sort == 'newest' ? 'selected' : ''}>Mới nhất</option>
+                        <option value="priceAsc" ${param.sort == 'priceAsc' ? 'selected' : ''}>Giá: Thấp đến cao</option>
+                        <option value="priceDesc" ${param.sort == 'priceDesc' ? 'selected' : ''}>Giá: Cao xuống thấp</option>
+                    </select>
+                </div>
 
-        <div class="velocity-filter-group">
-            <h3 class="velocity-filter-title">Trạng thái</h3>
-            <label class="velocity-checkbox-item">
-                <input type="checkbox" name="stt" value="new" onchange="this.form.submit()"
-                    <c:forEach items="${paramValues.stt}" var="s">
-                        <c:if test="${s == 'new'}">checked</c:if>
-                    </c:forEach>> Hàng mới về
-            </label>
-            <label class="velocity-checkbox-item">
-                <input type="checkbox" name="stt" value="sales" onchange="this.form.submit()"
-                    <c:forEach items="${paramValues.stt}" var="s">
-                        <c:if test="${s == 'sales'}">checked</c:if>
-                    </c:forEach>> Đang khuyến mãi
-            </label>
-        </div>
+                <div class="velocity-filter-group">
+                    <h3 class="velocity-filter-title">Trạng thái</h3>
+                    <label class="velocity-checkbox-item">
+                        <input type="checkbox" name="stt" value="new" onchange="this.form.submit()"
+                            <c:forEach items="${paramValues.stt}" var="s">
+                                <c:if test="${s == 'new'}">checked</c:if>
+                            </c:forEach>> Hàng mới về
+                    </label>
+                    <label class="velocity-checkbox-item">
+                        <input type="checkbox" name="stt" value="sales" onchange="this.form.submit()"
+                            <c:forEach items="${paramValues.stt}" var="s">
+                                <c:if test="${s == 'sales'}">checked</c:if>
+                            </c:forEach>> Đang khuyến mãi
+                    </label>
+                </div>
 
-        <div class="velocity-filter-group">
-            <h3 class="velocity-filter-title">Danh mục</h3>
-            <c:forEach items="${allCategories}" var="cat">
-                <label class="velocity-checkbox-item">
-                    <input type="checkbox" name="cateIds" value="${cat.id}" onchange="this.form.submit()"
-                        <c:forEach items="${paramValues.cateIds}" var="pId">
-                            <c:if test="${pId == cat.id.toString()}">checked</c:if>
-                        </c:forEach>> ${cat.name}
-                </label>
-            </c:forEach>
-        </div>
+                <div class="velocity-filter-group">
+                    <h3 class="velocity-filter-title">Danh mục</h3>
+                    <c:forEach items="${allCategories}" var="cat">
+                        <label class="velocity-checkbox-item">
+                            <input type="checkbox" name="cateIds" value="${cat.id}" onchange="this.form.submit()"
+                                <c:forEach items="${paramValues.cateIds}" var="pId">
+                                    <c:if test="${pId == cat.id.toString()}">checked</c:if>
+                                </c:forEach>> ${cat.name}
+                        </label>
+                    </c:forEach>
+                </div>
 
-        <div class="velocity-filter-group">
-    <h3 class="velocity-filter-title">Thương hiệu</h3>
-    <c:forEach items="${brands}" var="brand">
-        <label class="velocity-checkbox-item">
-            <%-- name="brandIds" phải khớp chính xác với biến List trong Java --%>
-            <input type="checkbox" name="brandIds" value="${brand.id}" onchange="this.form.submit()"
-                <c:forEach items="${paramValues.brandIds}" var="bId">
-                    <c:if test="${bId == brand.id.toString()}">checked</c:if>
-                </c:forEach>> ${brand.name}
-        </label>
-    </c:forEach>
-</div>
+                <div class="velocity-filter-group">
+                    <h3 class="velocity-filter-title">Thương hiệu</h3>
+                    <c:forEach items="${brands}" var="brand">
+                        <label class="velocity-checkbox-item">
+                            <input type="checkbox" name="brandIds" value="${brand.id}" onchange="this.form.submit()"
+                                <c:forEach items="${paramValues.brandIds}" var="bId">
+                                    <c:if test="${bId == brand.id.toString()}">checked</c:if>
+                                </c:forEach>> ${brand.name}
+                        </label>
+                    </c:forEach>
+                </div>
 
-        <div style="margin-top: 20px; text-align: center;">
-            <a href="<c:url value='/tat-ca-san-pham'/>" style="text-decoration: none; color: #d0021b; font-size: 13px;">
-                <i class="fa-solid fa-rotate-right"></i> Làm mới bộ lọc
-            </a>
-        </div>
-    </form>
-</aside>
+                <div style="margin-top: 20px; text-align: center;">
+                    <a href="<c:url value='/tat-ca-san-pham'/>" style="text-decoration: none; color: #d0021b; font-size: 13px;">
+                        <i class="fa-solid fa-rotate-right"></i> Làm mới bộ lọc
+                    </a>
+                </div>
+            </form>
+        </aside>
 
         <main class="velocity-main-content">
            <div class="velocity-catalog-grid">
