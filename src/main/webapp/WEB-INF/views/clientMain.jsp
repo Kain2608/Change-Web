@@ -36,7 +36,7 @@
                 </div>
                 <div class="icon-btns">
                     <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-user"></i></a>
+                    <a href="<c:url value='/client/login'/>"><i class="fa-solid fa-user"></i></a>
                 </div>
             </div>
         </div>
